@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Anas Lahna, computer engineering student at Concordia University and engineering intern at Lockheed Martin. Projects in AI, computer vision and full-stack development.">
+<meta property="og:title" content="Anas Lahna — Computer Engineer">
+<meta property="og:description" content="Security tooling, real-time computer vision and full-stack AI apps. Try the terminal.">
+<link rel="canonical" href="https://anaslahna.ca/">
+<meta property="og:url" content="https://anaslahna.ca/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://anaslahna.ca/anas-avatar.webp">
+<link rel="icon" href="anas-avatar.webp" type="image/webp">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Anas Lahna — Computer Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sparse dark page over a living field of signal lines; the centrepiece is a real terminal visitors can type into. */
+:root{
+  --bg:#08080A;
+  --panel:#0F0F12;
+  --line:#22222A;
+  --fg:#ECECE8;
+  --muted:#8F8F98;
+  --accent:#F0B45A;
+  --ok:#7DD893;
+  --sans:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--bg)}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1040px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.acc{color:var(--accent)}
+.ok{color:var(--ok)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Background canvas */
+#field{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.veil{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 80% at 50% 0%,transparent 40%,var(--bg) 100%)}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:22px;font-family:var(--mono);font-size:14px}
+.top nav{display:flex;gap:6px 26px;flex-wrap:wrap}
+.top a{text-decoration:none;color:var(--muted);transition:color .2s}
+.top a:hover,.top .brand{color:var(--fg)}
+.top .brand{font-weight:500}
+
+/* Hero */
+.hero{padding-block:clamp(80px,14vw,170px) clamp(90px,12vw,150px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px 56px;align-items:center}
+.hero-text{display:flex;flex-direction:column;gap:28px;align-items:flex-start;min-width:0}
+
+/* Interactive avatar */
+.avatar-zone{position:relative;justify-self:center;width:clamp(240px,30vw,360px);animation:up 1s cubic-bezier(.2,.8,.2,1) .3s both}
+.bob{animation:bob 6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.avatar{all:unset;box-sizing:border-box;position:relative;display:block;width:100%;aspect-ratio:1;max-width:100%;cursor:pointer;border-radius:50%;-webkit-tap-highlight-color:transparent}
+.avatar:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
+.ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 26s linear infinite;overflow:visible}
+.ring text{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;fill:var(--muted);transition:fill .3s}
+.avatar:hover .ring text{fill:var(--accent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.face{position:absolute;inset:13%;border-radius:50%;overflow:hidden;background:#0B0B10;box-shadow:0 0 0 1px var(--line),0 30px 70px -20px #000;
+  transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,box-shadow .35s}
+.avatar:hover .face{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 70%,transparent),0 0 0 8px color-mix(in srgb,var(--accent) 12%,transparent),0 30px 70px -20px #000}
+.face img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.04) translate(var(--px,0px),var(--py,0px));transition:transform .25s ease-out}
+.glare{position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at var(--gx,30%) var(--gy,25%),rgba(255,255,255,.16),transparent 55%);mix-blend-mode:screen}
+.avatar.poke .face{animation:poke .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes poke{30%{scale:.9 .94}60%{scale:1.05 1.02}100%{scale:1}}
+.bubble{position:absolute;top:2%;right:62%;z-index:2;max-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:14px 14px 4px 14px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:var(--mono);font-size:13.5px;line-height:1.45;color:var(--fg);box-shadow:0 20px 40px -20px #000;transform-origin:100% 100%}
+.bubble.pop{animation:pop .45s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{from{opacity:0;transform:scale(.6) translateY(8px)}to{opacity:1;transform:none}}
+.hint{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr}
+  .avatar-zone{order:-1;justify-self:start;width:clamp(200px,52vw,260px);margin-left:8px}
+  .bubble{right:auto;left:72%;top:4%;border-radius:14px 14px 14px 4px;transform-origin:0 100%;max-width:min(200px,40vw)}
+}
+.status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13.5px;color:var(--muted);padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:up .8s ease both}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:ping 2.2s ease-out infinite}
+.hero h1{font-size:clamp(72px,11.5vw,168px);line-height:.86;letter-spacing:-.055em;font-weight:600}
+.hero h1 .ch{display:inline-block;animation:drop .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ch:nth-child(2){animation-delay:.06s}.hero h1 .ch:nth-child(3){animation-delay:.12s}.hero h1 .ch:nth-child(4){animation-delay:.18s}.hero h1 .ch:nth-child(5){animation-delay:.24s;color:var(--accent)}
+.hero p{font-size:clamp(19px,2.2vw,24px);line-height:1.45;color:var(--muted);max-width:30ch;animation:up .9s ease .35s both}
+.hero p b{color:var(--fg);font-weight:500}
+.btns{display:flex;flex-wrap:wrap;gap:12px;animation:up .9s ease .5s both}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding-inline:20px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);font-family:var(--mono);font-size:14px;text-decoration:none;cursor:pointer;transition:border-color .2s,background .2s,transform .2s,color .2s}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+@keyframes drop{from{opacity:0;transform:translateY(-.25em)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 55%,transparent)}80%,100%{box-shadow:0 0 0 8px transparent}}
+
+/* Sections */
+section.block{padding-block:clamp(80px,11vw,140px)}
+.head{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.kicker{font-family:var(--mono);font-size:13.5px;color:var(--accent)}
+.head h2{font-size:clamp(34px,4.6vw,54px);letter-spacing:-.035em;line-height:1.05}
+.head p{color:var(--muted);max-width:52ch}
+.head code{font-family:var(--mono);font-size:.92em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+
+/* Interactive terminal */
+.term{border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 40px 100px -40px #000;overflow:hidden}
+.bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#2B2B33}
+.bar span{margin-left:10px}
+.tbody{height:clamp(340px,52vh,460px);overflow-y:auto;padding:22px 24px;font-family:var(--mono);font-size:14.5px;line-height:1.7;cursor:text;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ln{white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.7em;animation:ln .25s ease both}
+@keyframes ln{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+.ln a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.ln a:hover{border-bottom-color:var(--accent)}
+.ln .k{color:var(--fg)}
+.ln .d{color:var(--muted)}
+.ln .big{font-family:var(--sans);font-size:30px;letter-spacing:-.03em;font-weight:500;color:var(--fg)}
+.prompt-row{display:flex;align-items:center;gap:10px;margin-top:2px}
+.prompt-row .ps{color:var(--accent);flex:none}
+#cmd{flex:1 1 auto;min-width:0;background:transparent;border:0;outline:none;color:var(--fg);font:inherit;caret-color:var(--accent);padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 20px;border-top:1px solid var(--line)}
+.chip{font-family:var(--mono);font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 13px;min-height:36px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.chip:hover{color:var(--fg);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.chip.hot{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+
+/* Projects */
+.plist{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.prow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line);cursor:pointer;transition:padding .35s cubic-bezier(.2,.8,.2,1),background .35s;border-radius:4px}
+.prow:hover{padding-left:20px;background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.prow:focus-visible{outline:1px solid var(--accent);outline-offset:-1px}
+.prow h3{font-size:clamp(24px,3vw,34px);letter-spacing:-.03em;line-height:1.15}
+.prow p{grid-column:1;color:var(--muted);max-width:56ch;font-size:16px}
+.prow .meta{grid-column:2;grid-row:1/span 2;display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+.prow .go{color:var(--accent);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.prow:hover .go,.prow:focus-visible .go{opacity:1;transform:none}
+
+/* Experience */
+.xlist{border-top:1px solid var(--line)}
+.xi{border-bottom:1px solid var(--line);transition:background .3s}
+.xi:hover,.xi.open{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.xi-h{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:100px minmax(0,1fr) auto 28px;gap:8px 24px;align-items:center;padding:26px 12px;cursor:pointer}
+.xi-h:focus-visible{outline:1px solid var(--accent);outline-offset:-1px}
+.xi-when{font-family:var(--mono);font-size:14px;color:var(--accent)}
+.xi-role{display:flex;flex-direction:column;gap:4px;min-width:0}
+.xi-role b{font-size:clamp(20px,2.4vw,26px);font-weight:500;letter-spacing:-.025em;line-height:1.2}
+.xi-role span{font-family:var(--mono);font-size:13.5px;color:var(--muted)}
+.xi-hl{font-family:var(--mono);font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;transition:border-color .3s,color .3s}
+.xi:hover .xi-hl,.xi.open .xi-hl{border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent)}
+.xi-pm{position:relative;width:28px;height:28px;border:1px solid var(--line);border-radius:50%}
+.xi-pm::before,.xi-pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1px;background:var(--fg);transform:translate(-50%,-50%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.xi-pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.xi.open .xi-pm::after{transform:translate(-50%,-50%) rotate(0deg)}
+.xi-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.xi.open .xi-b{grid-template-rows:1fr}
+.xi-in{overflow:hidden;min-height:0}
+.xi-pad{display:flex;flex-direction:column;gap:18px;padding:0 64px 30px 136px;opacity:0;transform:translateY(-6px);transition:opacity .35s,transform .35s}
+.xi.open .xi-pad{opacity:1;transform:none;transition-delay:.1s}
+.bul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.bul li{position:relative;padding-left:22px;color:var(--muted);font-size:16px;line-height:1.6;max-width:72ch}
+.bul li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono);font-size:14px;top:1px}
+.bul b{color:var(--fg);font-weight:500}
+.tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tags li{font-family:var(--mono);font-size:12.5px;line-height:1;padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--bg);transition:color .2s,border-color .2s}
+.tags li:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
+
+/* Contact */
+.contact .big{font-size:clamp(48px,8vw,104px);line-height:.95;letter-spacing:-.05em;font-weight:600;margin-bottom:36px}
+.contact .big span{color:var(--accent)}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:28px}
+.addr{font-family:var(--mono);font-size:clamp(17px,2.2vw,21px);padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 85%,transparent);user-select:all;overflow-wrap:anywhere}
+.out-links{display:flex;gap:24px;flex-wrap:wrap;font-family:var(--mono);font-size:14.5px}
+.out-links a{text-decoration:none;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .2s,border-color .2s}
+.out-links a:hover{color:var(--accent);border-color:var(--accent)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;padding-block:36px;font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+.pending{opacity:0;transform:translateY(22px)}
+.rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+
+@media (max-width:640px){
+  .tbody{padding:18px;font-size:13.5px}
+  .prow{grid-template-columns:1fr}
+  .prow .meta{grid-column:1;grid-row:auto;flex-direction:row;align-items:center;gap:14px;text-align:left}
+  .xi-h{grid-template-columns:minmax(0,1fr) 28px;padding-inline:8px}
+  .xi-when{display:none}
+  .xi-role{grid-column:1}
+  .xi-hl{grid-column:1;grid-row:2;justify-self:start}
+  .xi-pm{grid-column:2;grid-row:1}
+  .xi-pad{padding:0 8px 26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+</head>
+<body>
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">anas</a>
+    <nav aria-label="Sections">
+      <a href="#terminal">terminal</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <a href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">résumé ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="name">
+    <div class="wrap">
+      <div class="hero-text">
+        <span class="status"><i aria-hidden="true"></i>Open to 2027 internships · Montréal</span>
+        <h1 id="name" aria-label="Anas."><span class="ch" aria-hidden="true">A</span><span class="ch" aria-hidden="true">n</span><span class="ch" aria-hidden="true">a</span><span class="ch" aria-hidden="true">s</span><span class="ch" aria-hidden="true">.</span></h1>
+        <p>Computer engineer. I build things that <b>sense</b>, <b>move</b> and <b>measure</b>.</p>
+        <div class="btns">
+          <a class="btn primary" href="#terminal">Try my terminal</a>
+          <a class="btn" href="#projects">See projects</a>
+          <a class="btn" href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+        </div>
+      </div>
+
+      <div class="avatar-zone">
+        <div class="bob">
+          <button class="avatar" id="avatar" type="button" aria-label="Anas's avatar. Click for a message.">
+            <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="circ" d="M100,100 m-91,0 a91,91 0 1,1 182,0 a91,91 0 1,1 -182,0"/></defs>
+              <text><textPath href="#circ" textLength="566" lengthAdjust="spacing">COMPUTER ENGINEER · MONTRÉAL · OPEN TO 2027 · CLICK ME ·</textPath></text>
+            </svg>
+            <span class="face"><img src="anas-avatar.webp" alt="" width="640" height="640"><span class="glare"></span></span>
+          </button>
+          <div class="bubble" id="bubble" role="status" aria-live="polite">Hey, I'm Anas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="terminal" aria-labelledby="term-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="kicker">// interactive</span>
+        <h2 id="term-h">Ask my terminal.</h2>
+        <p>Type a command or tap one below. Try <code>estimate 4 3.5 2.44</code> to price the paint for a room.</p>
+      </div>
+      <div class="term rv">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>anas@mtl — zsh</span></div>
+        <div class="tbody" id="tbody">
+          <div id="out" aria-live="polite"></div>
+          <div class="prompt-row">
+            <span class="ps" aria-hidden="true">anas@mtl ~ $</span>
+            <label class="sr" for="cmd">Terminal command</label>
+            <input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go">
+          </div>
+        </div>
+        <div class="chips" aria-label="Quick commands">
+          <button class="chip" type="button" data-cmd="help">help</button>
+          <button class="chip" type="button" data-cmd="about">about</button>
+          <button class="chip" type="button" data-cmd="projects">projects</button>
+          <button class="chip" type="button" data-cmd="skills">skills</button>
+          <button class="chip" type="button" data-cmd="estimate 4 3.5 2.44">estimate</button>
+          <button class="chip" type="button" data-cmd="contact">contact</button>
+          <button class="chip" type="button" data-cmd="resume">résumé</button>
+          <button class="chip hot" type="button" data-cmd="hire">hire</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects" aria-labelledby="proj-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="kicker">// selected work</span>
+        <h2 id="proj-h">Projects.</h2>
+      </div>
+      <div class="plist">
+        <button class="prow rv" type="button" data-open="resumind">
+          <h3>ResuMind</h3>
+          <p>Scores your résumé against a job description and returns ATS feedback in under 8 seconds.</p>
+          <span class="meta"><span>react · typescript · claude</span><span class="go">open in terminal →</span></span>
+        </button>
+        <button class="prow rv" type="button" data-open="storecraft">
+          <h3>StoreCraft</h3>
+          <p>An e-commerce platform with AI shopping agents that search, recommend and fill your cart.</p>
+          <span class="meta"><span>next.js · stripe · vercel ai sdk</span><span class="go">open in terminal →</span></span>
+        </button>
+        <button class="prow rv" type="button" data-open="hoops">
+          <h3>Basketball Game Analytics</h3>
+          <p>Real-time player, ball and possession tracking from game video, at 14 FPS.</p>
+          <span class="meta"><span>pytorch · yolov8 · opencv</span><span class="go">open in terminal →</span></span>
+        </button>
+        <button class="prow rv" type="button" data-open="wall">
+          <h3>Wall Paint Estimator</h3>
+          <p>One photo of a room in, litres of paint out.</p>
+          <span class="meta"><span>python · vision</span><span class="go">open in terminal →</span></span>
+        </button>
+        <button class="prow rv" type="button" data-open="openring">
+          <h3>OpenRing</h3>
+          <p>An open Oura-style app for a $20 smart ring.</p>
+          <span class="meta"><span>python · wearables</span><span class="go">open in terminal →</span></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience" aria-labelledby="xp-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="kicker">// professional experience</span>
+        <h2 id="xp-h">Where I've shipped.</h2>
+      </div>
+      <div class="xlist">
+        <div class="xi open rv">
+          <button class="xi-h" type="button" aria-expanded="true" aria-controls="xi-1">
+            <span class="xi-when">2026</span>
+            <span class="xi-role"><b>Systems Engineering Intern</b><span>Lockheed Martin · Jan – Dec 2026 · Montréal</span></span>
+            <span class="xi-hl">500+ docs automated</span>
+            <span class="xi-pm" aria-hidden="true"></span>
+          </button>
+          <div class="xi-b" id="xi-1"><div class="xi-in"><div class="xi-pad">
+            <ul class="bul">
+              <li>Built <b>Python automation pipelines</b> to reconcile engineering data across <b>Windchill</b> and <b>Cameo</b>, processing <b>500+ document</b> references.</li>
+              <li>Automated data pipelines (<b>pandas, openpyxl</b>) to generate weekly <b>Excel/HTML</b> reports from multiple data sources, reducing manual reporting effort by <b>80%</b> across the team.</li>
+              <li>Built a <b>Java</b> validation tool for security-requirement traceability, adopted as a standard pre-design-review check, cutting compliance audit prep by <b>70%</b> and surfacing <b>40+ requirement defects</b>.</li>
+            </ul>
+            <ul class="tags"><li>python</li><li>pandas</li><li>openpyxl</li><li>java</li><li>windchill</li><li>cameo</li></ul>
+          </div></div></div>
+        </div>
+
+        <div class="xi rv">
+          <button class="xi-h" type="button" aria-expanded="false" aria-controls="xi-2">
+            <span class="xi-when">2026</span>
+            <span class="xi-role"><b>Security Engineer Intern</b><span>Lockheed Martin · Jan – Aug 2026 · Montréal</span></span>
+            <span class="xi-hl">triage 30 → 2 min</span>
+            <span class="xi-pm" aria-hidden="true"></span>
+          </button>
+          <div class="xi-b" id="xi-2"><div class="xi-in"><div class="xi-pad">
+            <ul class="bul">
+              <li>Built an internal <b>Ruby CLI</b> tool to classify and map security requirements across <b>200+ system components</b>, reducing manual triage time from <b>30 min to under 2 min</b>.</li>
+              <li>Automated data pipelines (<b>pandas, openpyxl</b>) to generate weekly <b>Excel/HTML</b> reports from multiple data sources, reducing manual reporting effort by <b>80%</b> across the team.</li>
+              <li>Built a <b>Java</b> validation tool for security-requirement traceability, adopted as a standard pre-design-review check, cutting compliance audit prep by <b>70%</b> and surfacing <b>40+ requirement defects</b>.</li>
+            </ul>
+            <ul class="tags"><li>ruby</li><li>java</li><li>pandas</li><li>openpyxl</li></ul>
+          </div></div></div>
+        </div>
+
+        <div class="xi rv">
+          <button class="xi-h" type="button" aria-expanded="false" aria-controls="xi-3">
+            <span class="xi-when">2024</span>
+            <span class="xi-role"><b>Full-Stack Developer</b><span>Concordia Student Association · Sep – Dec 2024 · Montréal</span></span>
+            <span class="xi-hl">150+ students</span>
+            <span class="xi-pm" aria-hidden="true"></span>
+          </button>
+          <div class="xi-b" id="xi-3"><div class="xi-in"><div class="xi-pad">
+            <ul class="bul">
+              <li>Built cross-platform <b>event management tools for 150+ students</b>, improving sign-ups and notifications.</li>
+              <li>Developed mobile features in <b>React Native</b> and web components in <b>React</b>, connected to a <b>Node.js / Firebase</b> backend.</li>
+              <li>Developed a secure identity management workflow powered by <b>OpenID Connect</b> to handle user access.</li>
+              <li>Rebuilt multilingual support using an <b>i18n-based architecture</b>, reducing processing time by <b>50%</b> compared to the previous system.</li>
+            </ul>
+            <ul class="tags"><li>react native</li><li>react</li><li>node.js</li><li>firebase</li><li>openid connect</li><li>i18n</li></ul>
+          </div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <p class="kicker rv" style="margin-bottom:16px">// contact</p>
+      <h2 class="big rv" id="contact-h">Let's build<br>something<span>.</span></h2>
+      <div class="mail rv">
+        <span class="addr" id="addr">anas.lahna19@gmail.com</span>
+        <button class="btn primary" id="copy" type="button">Copy email</button>
+      </div>
+      <div class="out-links rv">
+        <a href="https://www.linkedin.com/in/anaslahna" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/Lahanas" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Anas Lahna · Montréal</span>
+    <span>built by hand · exit <span class="ok">0</span></span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Background: a field of signal lines that part around the cursor ---------- */
+  const cv = $('field'), cx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
+  const resize = () => {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize(); addEventListener('resize', resize);
+  if (matchMedia('(pointer: fine)').matches) {
+    addEventListener('pointermove', e => { mouse.tx = e.clientX; mouse.ty = e.clientY; mouse.active = true; }, { passive: true });
+    document.addEventListener('pointerleave', () => { mouse.active = false; });
+  }
+  const draw = t => {
+    cx.clearRect(0, 0, W, H);
+    // With no mouse, a soft focus drifts slowly across the screen
+    if (!mouse.active) { mouse.tx = W * (0.5 + 0.35 * Math.sin(t * 0.00023)); mouse.ty = H * (0.45 + 0.3 * Math.sin(t * 0.00017)); }
+    if (mouse.x < -999) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
+    mouse.x += (mouse.tx - mouse.x) * 0.08; mouse.y += (mouse.ty - mouse.y) * 0.08;
+    const gap = W < 640 ? 22 : 26, step = 10, s = t * 0.00035;
+    const rows = Math.ceil(H / gap) + 2;
+    cx.lineWidth = 1;
+    for (let i = -1; i < rows; i++) {
+      const y0 = i * gap;
+      const dy = y0 - mouse.y;
+      const near = Math.exp(-(dy * dy) / (2 * 140 * 140));
+      const r = Math.round(236 + (240 - 236) * near), g = Math.round(236 + (180 - 236) * near), b = Math.round(232 + (90 - 232) * near);
+      cx.strokeStyle = `rgba(${r},${g},${b},${0.06 + 0.42 * near})`;
+      cx.beginPath();
+      for (let x = -step; x <= W + step; x += step) {
+        let y = y0
+          + Math.sin(x * 0.006 + s * 2 + i * 0.35) * 6
+          + Math.sin(x * 0.0021 - s * 1.3 + i * 0.12) * 10;
+        const dx = x - mouse.x, d2 = dx * dx + dy * dy;
+        y += Math.sign(dy || 1) * 34 * Math.exp(-d2 / (2 * 110 * 110));
+        x === -step ? cx.moveTo(x, y) : cx.lineTo(x, y);
+      }
+      cx.stroke();
+    }
+  };
+  if (reduce) { draw(0); addEventListener('resize', () => draw(0)); }
+  else {
+    let raf = 0;
+    const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(loop); });
+  }
+
+  /* ---------- Interactive terminal ---------- */
+  const out = $('out'), input = $('cmd'), tbody = $('tbody');
+  const EMAIL = 'anas.lahna19@gmail.com';
+  const P = {
+    resumind: { name: 'ResuMind', stack: 'react · typescript · tailwind · claude sonnet 4 · docker', code: true, text: 'An AI résumé analyzer. Drop in a résumé PDF and a job description: the PDF is parsed in the browser with PDF.js, sent through a typed prompt-to-JSON pipeline on Claude Sonnet 4, and comes back as a 5-category ATS score with 15+ improvement tips.', nums: [['response', 'under 8 s'], ['output', '5 scores · 15+ tips'], ['users', '30+']] },
+    storecraft: { name: 'StoreCraft', stack: 'next.js 16 · sanity · stripe · clerk · vercel ai sdk · zustand', code: true, text: 'A full-stack AI e-commerce platform with real-time cart state and a CMS-backed catalogue. Stripe Checkout with webhook handlers runs idempotent payment flows end to end. AI shopping agents use tool calling to search products, recommend items and manage the cart. Clerk OAuth, deployed on Vercel.', nums: [['products', '100+'], ['payments', '50+ test transactions'], ['auth', 'Clerk OAuth']] },
+    hoops: { name: 'Basketball Game Analytics', stack: 'python · pytorch · yolov8 · opencv · bytetrack · fastapi · docker', code: true, text: 'A real-time computer vision pipeline for game video. Three YOLO models detect players and the ball, ByteTrack follows them, CLIP sorts players into teams zero-shot, and OpenCV homography maps them onto the court. An original pose-based possession heuristic (14 anchor points, 11-frame smoothing) decides who has the ball.', nums: [['mAP@0.5', '0.91 / 0.82 / 0.88'], ['speed', '14 FPS (71 ms/frame) on a T4'], ['false pos.', '−20% vs nearest-player baseline']] },
+    wall: { name: 'Wall Paint Estimator', year: '2026', stack: 'python · computer vision', text: 'One photo of a room in, paintable area and litres of paint out. The model finds the walls, removes doors and windows, and estimates real dimensions, so a paint quote no longer depends on measuring by eye.', tip: 'estimate 4 3.5 2.44' },
+    openring: { name: 'OpenRing', year: '2026', stack: 'python · wearables · web dashboard', text: 'An open alternative to the Oura app for the Colmi R9 smart ring. A Python backend reads the ring and serves a live health dashboard, with desktop notifications and gesture control.' },
+  };
+
+  const ln = (parts, cls) => {
+    const d = document.createElement('div');
+    d.className = 'ln' + (cls ? ' ' + cls : '');
+    (Array.isArray(parts) ? parts : [parts]).forEach(p => {
+      if (typeof p === 'string') { d.append(p); return; }
+      const el = document.createElement(p.href ? 'a' : 'span');
+      if (p.href) { el.href = p.href; if (p.ext) { el.target = '_blank'; el.rel = 'noopener'; } }
+      if (p.c) el.className = p.c;
+      el.textContent = p.t;
+      d.append(el);
+    });
+    out.append(d);
+  };
+  const gap = () => ln('');
+  const row = (k, v) => ln([{ t: k.padEnd(12), c: 'd' }, { t: v, c: 'k' }]);
+
+  const cmds = {
+    help() {
+      ln({ t: 'commands', c: 'd' });
+      [['about', 'who I am'], ['projects', 'what I build'], ['open <name>', 'details on one project'], ['skills', 'languages and tools'], ['experience', 'where I have worked'], ['estimate L W H', 'paint for a room, in metres'], ['contact', 'how to reach me'], ['resume', 'my résumé (PDF)'], ['hire', 'the short version'], ['clear', 'clear the screen']]
+        .forEach(([c, d]) => ln([{ t: '  ' + c.padEnd(16), c: 'acc' }, { t: d, c: 'd' }]));
+    },
+    about() {
+      row('name', 'Anas Lahna');
+      row('studies', 'B.Eng. Computer Engineering Co-op @ Concordia');
+      row('now', 'Systems & Security Engineering Intern @ Lockheed Martin');
+      row('speaks', 'Français · English · العربية');
+      row('status', 'Open to 2027 internships ✓');
+    },
+    whoami() { cmds.about(); },
+    projects() {
+      Object.entries(P).forEach(([k, p]) => ln([{ t: '  ' + k.padEnd(13), c: 'acc' }, { t: p.name, c: 'k' }]));
+      gap(); ln({ t: 'type open <name>, e.g. open wall', c: 'd' });
+    },
+    open(args) {
+      const k = (args[0] || '').toLowerCase();
+      const p = P[k];
+      if (!p) { ln([{ t: 'usage: open ', c: 'd' }, { t: Object.keys(P).join(' | '), c: 'acc' }]); return; }
+      ln({ t: p.name, c: 'big' });
+      ln({ t: p.stack, c: 'd' });
+      gap(); ln({ t: p.text, c: 'k' });
+      if (p.nums) { gap(); p.nums.forEach(([k, v]) => row(k, v)); }
+      if (p.code) { gap(); ln([{ t: 'code'.padEnd(12), c: 'd' }, { t: 'github.com/Lahanas', href: 'https://github.com/Lahanas', ext: true }]); }
+      if (p.tip) { gap(); ln([{ t: 'try: ', c: 'd' }, { t: p.tip, c: 'acc' }]); }
+    },
+    skills() {
+      row('languages', 'Java, Python, C++, JavaScript, TypeScript, Ruby, HTML/CSS');
+      row('frontend', 'React, React Native, Next.js, TailwindCSS');
+      row('backend', 'Node.js, Express, FastAPI, Firebase, MongoDB');
+      row('ml / cv', 'PyTorch, YOLOv8, OpenCV, pandas');
+      row('infra', 'Docker, Kubernetes, Linux, Vercel');
+      row('spoken', 'French, English, Arabic');
+    },
+    experience() {
+      row('2026', 'Lockheed Martin — Systems Engineering Intern (Jan–Dec)');
+      ln({ t: '            Python pipelines across Windchill + Cameo: 500+ documents', c: 'd' });
+      row('2026', 'Lockheed Martin — Security Engineer Intern (Jan–Aug)');
+      ln({ t: '            Ruby CLI: security triage from 30 min to under 2 min', c: 'd' });
+      ln({ t: '            Java traceability tool: audit prep -70%, 40+ defects found', c: 'd' });
+      ln({ t: '            pandas reporting pipelines: manual reporting -80%', c: 'd' });
+      row('2024', 'Concordia Student Association — Full-Stack Developer');
+      ln({ t: '            React Native + React tools for 150+ students, i18n 50% faster', c: 'd' });
+    },
+    estimate(args) {
+      const n = args.map(Number);
+      if (args.length && (args.length < 3 || n.some(v => !Number.isFinite(v) || v < 0))) {
+        ln({ t: 'usage: estimate <length> <width> <height> [doors] [windows] [coats]', c: 'd' });
+        ln({ t: 'example: estimate 4 3.5 2.44 1 1 2', c: 'd' }); return;
+      }
+      const [L, Wd, Ht, doors, wins, coats] = args.length ? [n[0], n[1], n[2], n[3] ?? 1, n[4] ?? 1, n[5] ?? 2] : [4, 3.5, 2.44, 1, 1, 2];
+      const area = Math.max(0, 2 * (L + Wd) * Ht - Math.floor(doors) * 1.9 - Math.floor(wins) * 1.5);
+      const litres = area * Math.max(1, Math.floor(coats)) / 10;
+      const cans = litres > 0 ? Math.ceil(litres / 3.78) : 0;
+      ln({ t: `room ${L} × ${Wd} × ${Ht} m · ${Math.floor(doors)} door · ${Math.floor(wins)} window · ${Math.max(1, Math.floor(coats))} coats`, c: 'd' });
+      gap();
+      row('wall area', area.toFixed(1) + ' m²');
+      row('paint', litres.toFixed(1) + ' L');
+      row('cans', cans + ' × 3.78 L');
+      gap(); ln({ t: '# the full app measures the room from a single photo', c: 'd' });
+    },
+    contact() {
+      ln([{ t: 'email'.padEnd(12), c: 'd' }, { t: EMAIL, c: 'k' }]);
+      ln([{ t: 'linkedin'.padEnd(12), c: 'd' }, { t: 'linkedin.com/in/anaslahna', href: 'https://www.linkedin.com/in/anaslahna', ext: true }]);
+      ln([{ t: 'github'.padEnd(12), c: 'd' }, { t: 'github.com/Lahanas', href: 'https://github.com/Lahanas', ext: true }]);
+      ln([{ t: 'résumé'.padEnd(12), c: 'd' }, { t: 'Resume_AnasLahna.pdf', href: 'Resume_AnasLahna.pdf', ext: true }]);
+    },
+    resume() {
+      ln([{ t: 'résumé'.padEnd(12), c: 'd' }, { t: 'Resume_AnasLahna.pdf ↗', href: 'Resume_AnasLahna.pdf', ext: true }]);
+      ln({ t: '            click to open · 1 page · updated Nov 2026', c: 'd' });
+    },
+    hire() {
+      ln({ t: 'Good call.', c: 'big' });
+      ln({ t: 'Computer engineer who ships: security tooling at Lockheed Martin, real-time computer vision and full-stack AI apps.', c: 'k' });
+      gap();
+      ln([{ t: 'email'.padEnd(12), c: 'd' }, { t: EMAIL, c: 'acc' }]);
+      ln([{ t: 'available'.padEnd(12), c: 'd' }, { t: '2027 internships · Montréal or relocate', c: 'k' }]);
+    },
+    sudo() { ln({ t: 'Permission denied. Nice try though.', c: 'd' }); },
+    ls() { cmds.projects(); },
+    clear() { out.replaceChildren(); }
+  };
+  const names = Object.keys(cmds);
+
+  const run = (raw, echo = true) => {
+    const line = raw.trim();
+    if (echo) ln([{ t: 'anas@mtl ~ $ ', c: 'acc' }, { t: line, c: 'k' }]);
+    if (!line) return;
+    const [c, ...args] = line.split(/\s+/);
+    const fn = cmds[c.toLowerCase()];
+    if (fn) fn(args); else ln([{ t: 'command not found: ', c: 'd' }, { t: c, c: 'k' }, { t: '. Type help.', c: 'd' }]);
+    if (c.toLowerCase() !== 'clear') gap();
+    tbody.scrollTop = tbody.scrollHeight;
+  };
+
+  // Opening screen, complete at rest
+  ln({ t: 'Welcome. This is a real terminal, type into it.', c: 'k' });
+  ln({ t: 'Type help, or tap a command below.', c: 'd' });
+  gap();
+  run('whoami');
+
+  const hist = []; let hi = 0;
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { const v = input.value; if (v.trim()) { hist.push(v); } hi = hist.length; input.value = ''; run(v); }
+    else if (e.key === 'ArrowUp') { if (hi > 0) { hi--; input.value = hist[hi]; } e.preventDefault(); }
+    else if (e.key === 'ArrowDown') { if (hi < hist.length) { hi++; input.value = hist[hi] ?? ''; } e.preventDefault(); }
+    else if (e.key === 'Tab') {
+      const v = input.value.toLowerCase();
+      const pool = v.startsWith('open ') ? Object.keys(P).map(k => 'open ' + k) : names;
+      const m = pool.filter(n => n.startsWith(v));
+      if (v && m.length) { e.preventDefault(); input.value = m[0] + (v.startsWith('open ') ? '' : ' '); }
+    }
+  });
+  tbody.addEventListener('mouseup', () => { if (!String(getSelection())) input.focus({ preventScroll: true }); });
+
+  // Typed commands from chips and project rows
+  let busy = false;
+  const typeRun = async cmd => {
+    if (busy) return; busy = true;
+    input.value = '';
+    if (!reduce) for (const ch of cmd) { input.value += ch; await new Promise(r => setTimeout(r, 28)); }
+    input.value = ''; hist.push(cmd); hi = hist.length; run(cmd);
+    busy = false;
+  };
+  document.querySelectorAll('[data-cmd]').forEach(b => b.addEventListener('click', () => typeRun(b.dataset.cmd)));
+  document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => {
+    $('terminal').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    setTimeout(() => typeRun('open ' + b.dataset.open), reduce ? 0 : 450);
+  }));
+
+  /* ---------- Avatar: looks toward the cursor, talks when clicked ---------- */
+  const av = $('avatar'), face = av.querySelector('.face'), bubble = $('bubble');
+  if (!reduce && matchMedia('(pointer: fine)').matches) {
+    let ax = 0, ay = 0, af = 0;
+    addEventListener('pointermove', e => {
+      ax = e.clientX; ay = e.clientY;
+      if (af) return;
+      af = requestAnimationFrame(() => {
+        af = 0;
+        const r = av.getBoundingClientRect();
+        const dx = Math.max(-1, Math.min(1, (ax - (r.left + r.width / 2)) / (innerWidth / 2)));
+        const dy = Math.max(-1, Math.min(1, (ay - (r.top + r.height / 2)) / (innerHeight / 2)));
+        face.style.setProperty('--ry', (dx * 18).toFixed(2) + 'deg');
+        face.style.setProperty('--rx', (-dy * 14).toFixed(2) + 'deg');
+        face.style.setProperty('--px', (dx * 6).toFixed(1) + 'px');
+        face.style.setProperty('--py', (dy * 5).toFixed(1) + 'px');
+        face.style.setProperty('--gx', (50 - dx * 30).toFixed(0) + '%');
+        face.style.setProperty('--gy', (40 - dy * 25).toFixed(0) + '%');
+      });
+    }, { passive: true });
+  }
+  const lines = [
+    "Hey, I'm Anas.",
+    'I build security tools, computer vision and AI apps.',
+    'Try the terminal below. Type help.',
+    'Type open resumind in the terminal.',
+    'My basketball tracker runs at 14 FPS on a T4.',
+    'Hiring for 2027? Type hire.',
+    'Okay, you can stop poking me now.',
+    "Fine. One more. I speak French, English and Arabic.",
+  ];
+  let li = 0;
+  av.addEventListener('click', () => {
+    li = (li + 1) % lines.length;
+    bubble.textContent = lines[li];
+    if (!reduce) {
+      bubble.classList.remove('pop'); av.classList.remove('poke');
+      void bubble.offsetWidth;
+      bubble.classList.add('pop'); av.classList.add('poke');
+    }
+  });
+
+  /* ---------- Copy email ---------- */
+  const btn = $('copy');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Copied ✓'; setTimeout(() => btn.textContent = 'Copy email', 1800); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents($('addr')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected, press Ctrl+C'; };
+    try { navigator.clipboard.writeText(EMAIL).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  /* ---------- Experience: open and close roles ---------- */
+  document.querySelectorAll('.xi-h').forEach(h => h.addEventListener('click', () => {
+    const item = h.closest('.xi'), open = !item.classList.contains('open');
+    item.classList.toggle('open', open);
+    h.setAttribute('aria-expanded', String(open));
+  }));
+
+  /* ---------- KPI numbers count up when they scroll into view ---------- */
+  if (!reduce && 'IntersectionObserver' in window) {
+    const cio = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      const el = en.target, to = +el.dataset.to, pre = el.dataset.pre || '', suf = el.dataset.suf || '', t0 = performance.now();
+      const step = now => { const p = Math.min(1, (now - t0) / 1300), e = 1 - Math.pow(1 - p, 3); el.textContent = pre + Math.round(to * e) + suf; if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }), { threshold: .6 });
+    document.querySelectorAll('[data-to]').forEach(el => { if (el.getBoundingClientRect().top > innerHeight) cio.observe(el); });
+  }
+
+  /* ---------- Reveal on scroll (only below the first screen) ---------- */
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.remove('pending'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    let k = 0;
+    document.querySelectorAll('.rv').forEach(el => {
+      if (el.getBoundingClientRect().top > innerHeight) { el.style.transitionDelay = (k++ % 4) * 60 + 'ms'; el.classList.add('pending'); io.observe(el); }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

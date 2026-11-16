@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Anas Lahna, Computer Engineering Co-op student at Concordia University, engineering intern at Lockheed Martin and FPGA developer at Space Concordia.">
+<meta name="description" content="Anas Lahna, Computer Engineering student at Concordia. I build across the whole stack: products, AI and the hardware underneath.">
 <meta property="og:title" content="Anas Lahna — Computer Engineer">
-<meta property="og:description" content="Systems and security engineering at Lockheed Martin, FPGA work on a wildfire-detection satellite, an ML painting quote tool and real-time computer vision.">
+<meta property="og:description" content="Products, AI and the hardware underneath. Lockheed Martin intern, open to 2027 internships.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lahanas.github.io/portfolio-website/">
 <meta property="og:image" content="https://lahanas.github.io/portfolio-website/anas-avatar.webp">
@@ -68,16 +68,18 @@ section[id]{scroll-margin-top:72px}
 .hero-text{display:flex;flex-direction:column;gap:26px;align-items:flex-start;min-width:0}
 .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13.5px;color:var(--muted);padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--bg) 70%,transparent);animation:up .8s ease both}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:ping 2.2s ease-out infinite}
-.hero h1{font-size:clamp(72px,11.5vw,168px);line-height:.86;letter-spacing:-.055em;font-weight:600}
-.hero h1 .ch{display:inline-block;animation:drop .9s cubic-bezier(.2,.8,.2,1) both}
-.hero h1 .ch:nth-child(2){animation-delay:.06s}.hero h1 .ch:nth-child(3){animation-delay:.12s}.hero h1 .ch:nth-child(4){animation-delay:.18s}.hero h1 .ch:nth-child(5){animation-delay:.24s;color:var(--accent)}
-.hero p{font-size:clamp(19px,2.2vw,24px);line-height:1.45;color:var(--muted);max-width:30ch;animation:up .9s ease .35s both}
+.hero h1{font-size:clamp(60px,9.4vw,136px);line-height:.88;letter-spacing:-.05em;font-weight:600}
+.hero h1 .w{display:inline-block;animation:drop .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .w+.w{animation-delay:.12s}
+.hero p{font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--muted);max-width:38ch;animation:up .9s ease .35s both}
 .hero p b{color:var(--fg);font-weight:500}
 .btns{display:flex;flex-wrap:wrap;gap:10px;animation:up .9s ease .5s both}
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding-inline:20px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);font-family:var(--mono);font-size:14px;text-decoration:none;cursor:pointer;transition:border-color .2s,background .2s,transform .2s,color .2s}
 .btn:hover{border-color:var(--accent);transform:translateY(-1px)}
 .btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn.mailbtn{border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent)}
+.btn.mailbtn:hover{background:var(--accent);color:var(--bg)}
 .ask{font-family:var(--mono);font-size:13.5px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;animation:up .9s ease .6s both;transition:color .2s,border-color .2s}
 .ask:hover{color:var(--accent);border-color:var(--accent)}
 @keyframes drop{from{opacity:0;transform:translateY(-.25em)}to{opacity:1;transform:none}}
@@ -234,10 +236,10 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .plate{position:absolute;left:50%;top:46%;width:190px;height:190px;margin:-95px 0 0 -95px;display:grid;place-items:center;border:1px solid #3A3A44;background:color-mix(in srgb,var(--panel) 94%,transparent);opacity:.35;
   transform:translateY(calc(var(--y) + var(--lift,0px))) rotateX(60deg) rotateZ(45deg);transition:transform .7s cubic-bezier(.2,.8,.2,1),border-color .4s,background .4s,box-shadow .4s,opacity .4s}
 .plate span{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.plate[data-l="1"]{--y:96px;--ya:27px}
-.plate[data-l="2"]{--y:32px;--ya:9px}
-.plate[data-l="3"]{--y:-32px;--ya:-9px}
-.plate[data-l="4"]{--y:-96px;--ya:-27px}
+.plate[data-l="1"]{--y:-96px;--ya:-27px}
+.plate[data-l="2"]{--y:-32px;--ya:-9px}
+.plate[data-l="3"]{--y:32px;--ya:9px}
+.plate[data-l="4"]{--y:96px;--ya:27px}
 .plate.on{opacity:1;border-color:#8F8F98}
 .plate.on span{color:var(--fg)}
 .plate.cur{--lift:-16px;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--panel));box-shadow:0 0 50px color-mix(in srgb,var(--accent) 22%,transparent)}
@@ -252,16 +254,29 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .step p{color:var(--muted);max-width:44ch}
 .step .used{font-family:var(--mono);font-size:13px;color:var(--muted)}
 .step .used b{color:var(--fg);font-weight:400}
-.step .tags li{font-size:13.5px;padding:8px 12px;color:var(--fg)}
+.step .tags{gap:14px 10px}
+.step .tags li{position:relative;font-size:13.5px;padding:9px 13px;color:var(--fg);background:#121216;border:1px solid #2E2E36;border-radius:4px}
+.step .tags li::before,.step .tags li::after{content:"";position:absolute;left:7px;right:7px;height:3px;background:repeating-linear-gradient(90deg,#55555E 0 2px,transparent 2px 6px);transition:background .2s}
+.step .tags li::before{top:-4px}
+.step .tags li::after{bottom:-4px}
+.step .tags li:hover{border-color:var(--accent);color:var(--accent)}
+.step .tags li:hover::before,.step .tags li:hover::after{background:repeating-linear-gradient(90deg,var(--accent) 0 2px,transparent 2px 6px)}
 
-/* Impact strip */
-.impact{border-block:1px solid var(--line);background:color-mix(in srgb,var(--panel) 78%,transparent)}
-.imp{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.imp li{display:flex;flex-direction:column;gap:6px;padding:28px 22px;border-left:1px solid var(--line)}
-.imp li:first-child{border-left:0;padding-left:0}
-.imp strong{font-size:clamp(26px,3vw,38px);font-weight:600;letter-spacing:-.035em;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap}
-.imp strong em{font-style:normal;color:var(--accent)}
-.imp span{font-size:14.5px;color:var(--muted);line-height:1.45}
+/* Right-now board (split-flap) */
+.now{border-block:1px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.board{display:flex;flex-direction:column;padding-block:26px}
+.board-top{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted);padding-bottom:14px}
+.board-row{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:8px 18px;align-items:center;padding-block:11px;border-top:1px solid var(--line)}
+.board-k{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.flap{display:flex;flex-wrap:wrap;row-gap:6px;min-width:0}
+.word{display:inline-flex;gap:2px;margin-right:.55em;white-space:nowrap}
+.cell{display:inline-block;min-width:.74em;padding:.2em .08em;text-align:center;font-family:var(--mono);font-size:clamp(14px,1.55vw,18px);line-height:1.15;color:var(--fg);background:#1C1C22;border:1px solid #2A2A32;border-radius:3px;position:relative}
+.cell::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.65)}
+.board-row.hot .cell{color:var(--accent)}
+.board-st{font-family:var(--mono);font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.board-st i{width:7px;height:7px;border-radius:50%;background:#3A3A44}
+.board-st.live{color:var(--ok)}
+.board-st.live i{background:var(--ok);animation:ping 2.2s ease-out infinite}
 
 /* Project demos */
 .proj{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px 40px;align-items:center}
@@ -290,6 +305,15 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .paint .scan{stroke:var(--accent);stroke-width:2}
 .paint .lbl{font-family:var(--mono);font-size:11px;fill:var(--fg)}
 
+/* Beyond the code */
+.beyond-one{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px 56px;align-items:end;padding-block:8px;border-top:1px solid var(--line);padding-top:40px}
+.beyond-one h2{font-size:clamp(34px,4.6vw,54px);letter-spacing:-.035em;line-height:1.05}
+.by-line{display:flex;flex-direction:column;gap:8px}
+.by-main{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2}
+.by-sub{font-family:var(--mono);font-size:14px;color:var(--accent)}
+.by-note{color:var(--muted);max-width:52ch;margin-top:6px}
+@media (max-width:820px){.beyond-one{grid-template-columns:1fr}}
+
 /* Off the clock */
 .beyond{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
 .by{display:flex;flex-direction:column;gap:12px;padding:28px 26px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel) 88%,transparent);position:relative;overflow:hidden}
@@ -300,7 +324,27 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .by.iron::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);box-shadow:0 0 0 22px color-mix(in srgb,var(--accent) 5%,transparent),0 0 0 44px color-mix(in srgb,var(--accent) 3%,transparent)}
 
 /* Contact */
-.contact .big{font-size:clamp(48px,8vw,104px);line-height:.95;letter-spacing:-.05em;font-weight:600;margin-bottom:36px}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:48px 64px;align-items:start}
+.c-left{display:flex;flex-direction:column;align-items:flex-start;gap:26px;min-width:0}
+.contact .big{font-size:clamp(48px,7.4vw,100px);line-height:.95;letter-spacing:-.05em;font-weight:600}
+.c-sub{font-size:clamp(17px,1.8vw,20px);color:var(--muted);max-width:46ch}
+.c-mail{display:inline-flex;align-items:baseline;gap:14px;max-width:100%;font-size:clamp(24px,3.3vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.1;text-decoration:none;color:var(--fg);overflow-wrap:anywhere;transition:color .25s}
+.c-mail #addr{white-space:nowrap}
+@media (max-width:420px){.c-mail #addr{white-space:normal}}
+.c-mail .arr{color:var(--accent);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.c-mail:hover{color:var(--accent)}
+.c-mail:hover .arr{transform:translateX(8px)}
+.c-links{display:flex;flex-wrap:wrap;gap:10px}
+.ic{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:54px;min-height:54px;padding-inline:18px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel) 85%,transparent);color:var(--fg);font-family:var(--mono);font-size:14px;text-decoration:none;cursor:pointer;transition:border-color .2s,color .2s,transform .2s}
+.ic:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.ic b{font-family:var(--sans);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.c-right{display:flex;flex-direction:column;gap:24px;border-left:1px solid var(--line);padding-left:48px;min-width:0}
+.c-right dl{margin:0;display:flex;flex-direction:column;gap:22px}
+.c-right dt{font-size:14px;color:var(--muted);margin-bottom:4px}
+.c-right dd{margin:0;font-size:18px;line-height:1.4}
+.c-nav{display:flex;flex-wrap:wrap;gap:8px 22px;padding-top:10px;font-size:15px}
+.c-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
+.c-nav a:hover{color:var(--accent)}
 .contact .big span{color:var(--accent)}
 .mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:28px}
 .addr{font-family:var(--mono);font-size:clamp(17px,2.2vw,21px);padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 85%,transparent);user-select:all;overflow-wrap:anywhere}
@@ -317,9 +361,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
   .avatar-zone{order:-1;justify-self:start;width:clamp(200px,52vw,260px);margin-left:8px}
   .bubble{right:auto;left:72%;top:4%;border-radius:14px 14px 14px 4px;transform-origin:0 100%;max-width:min(200px,40vw)}
   .proj{grid-template-columns:1fr}
-  .imp{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .imp li:nth-child(odd){border-left:0;padding-left:0}
-  .imp li:nth-child(n+3){border-top:1px solid var(--line)}
+  .board-row{grid-template-columns:minmax(0,1fr) auto}
+  .board-k{grid-column:1/-1}
+  .contact-grid{grid-template-columns:1fr}
+  .c-right{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:32px}
   .road-line{left:18px}
   .stop{grid-template-columns:36px minmax(0,1fr);column-gap:14px}
   .node{grid-column:1;margin-top:24px}
@@ -386,12 +431,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     <div class="wrap">
       <div class="hero-text">
         <span class="status"><i aria-hidden="true"></i>Open to 2027 internships · Montréal</span>
-        <h1 id="name" aria-label="Anas."><span class="ch" aria-hidden="true">A</span><span class="ch" aria-hidden="true">n</span><span class="ch" aria-hidden="true">a</span><span class="ch" aria-hidden="true">s</span><span class="ch" aria-hidden="true">.</span></h1>
-        <p>Computer Engineering Co-op at Concordia. I build things that <b>sense</b>, <b>move</b> and <b>measure</b>.</p>
+        <h1 id="name"><span class="w">Anas</span> <span class="w">Lahna</span></h1>
+        <p>Computer Engineering student at Concordia. I build across the whole stack: <b>products</b>, <b>AI</b> and the <b>hardware</b> underneath.</p>
         <div class="btns">
           <a class="btn primary" href="#projects">Projects</a>
           <a class="btn" href="#experience">Experience</a>
           <a class="btn" href="#skills">Skills</a>
+          <a class="btn mailbtn" href="mailto:lahanas07@gmail.com">Email me <span aria-hidden="true">→</span></a>
         </div>
         <a class="ask" href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">or read my résumé ↗</a>
       </div>
@@ -405,28 +451,28 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
             </svg>
             <span class="face"><img src="anas-avatar.webp" alt="" width="640" height="640"><span class="glare"></span></span>
           </button>
-          <div class="bubble" id="bubble" role="status" aria-live="polite">Hey, I'm Anas.</div>
+          <div class="bubble" id="bubble" role="status" aria-live="polite">Hi, I'm Anas.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="impact" aria-label="Impact in numbers">
+  <section class="now" aria-label="What I'm doing right now">
     <div class="wrap">
-      <ul class="imp">
-        <li><strong>3 h <em>→</em> 5 min</strong><span>document version checks at Lockheed Martin</span></li>
-        <li><strong>30 <em>→</em> 2 min</strong><span>security triage per review at Lockheed Martin</span></li>
-        <li><strong>50+</strong><span>people using PaintWise for real quotes</span></li>
-        <li><strong>14 FPS</strong><span>real-time vision pipeline at 0.91 mAP@0.5</span></li>
-      </ul>
+      <div class="board" id="board">
+        <div class="board-top"><span>right now</span><span id="clock">Montréal</span></div>
+        <div class="board-row hot"><span class="board-k">interning</span><span class="flap">Systems Engineering Intern · Lockheed Martin</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row"><span class="board-k">building</span><span class="flap">FPGA camera payload · Space Concordia</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row"><span class="board-k">studying</span><span class="flap">Computer Engineering · Concordia University</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row"><span class="board-k">next</span><span class="flap">2027 internship · your team?</span><span class="board-st"><i aria-hidden="true"></i>boarding</span></div>
+      </div>
     </div>
   </section>
 
   <section class="block" id="projects" aria-labelledby="proj-h">
     <div class="wrap">
       <div class="head rv">
-        <span class="kicker">// selected work</span>
-        <h2 id="proj-h">Projects.</h2>
+        <h2 id="proj-h">Things I've built.</h2>
         <p>Filter by area, then tap + for the details.</p>
       </div>
       <div class="filters rv" role="group" aria-label="Filter projects">
@@ -495,12 +541,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
                 <div class="demo-cap"><span><i style="--c:var(--accent)"></i>paintable wall</span><span><i style="--c:#8F8F98"></i>excluded: door, window</span></div>
               </div>
               <div class="proj-txt">
-                <p>Built and deployed for residential quotes, and adopted by <b>50+ users</b>.</p>
+                <p>Built and deployed for residential quotes, and adopted by <b>30+ users</b>.</p>
                 <p>A fine-tuned <b>SegFormer</b> model segments the paintable walls in a photo, so a quote takes <b>under 10 seconds instead of 15 minutes</b>, with area estimates within <b>±8% of tape measurements</b>. Python and FastAPI behind a React front end.</p>
               </div>
             </div>
             <div class="nums">
-              <div><strong>50+</strong><span>users for residential quotes</span></div>
+              <div><strong>30+</strong><span>users for residential quotes</span></div>
               <div><strong>15 min → 10 s</strong><span>quote preparation</span></div>
               <div><strong>±8%</strong><span>area error vs tape measurements</span></div>
             </div>
@@ -627,7 +673,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
           <li class="stop">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
-              <span class="stop-when">Jan – Dec 2026</span>
+              <span class="stop-when">Sep – Dec 2026</span>
               <h3>Systems Engineering Intern</h3>
               <span class="stop-org">Lockheed Martin · Montréal</span>
               <span class="stop-hl">version checks 3 h → under 5 min</span>
@@ -657,51 +703,51 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       <div class="head rv">
         <span class="kicker">// skills</span>
         <h2 id="sk-h">Every system is a stack.</h2>
-        <p>Hardware at the bottom, people at the top. Here's what I use at each layer. Keep scrolling and it builds itself.</p>
+        <p>From the surface down to the hardware. Keep scrolling and it builds itself.</p>
       </div>
       <div class="stack" id="stack">
         <div class="stack-viz" aria-hidden="true">
           <div class="stack-stick">
-            <div class="plate" data-l="1"><span>systems</span></div>
-            <div class="plate" data-l="2"><span>backend</span></div>
-            <div class="plate" data-l="3"><span>ai</span></div>
-            <div class="plate" data-l="4"><span>interface</span></div>
+            <div class="plate" data-l="4"><span>hardware</span></div>
+            <div class="plate" data-l="3"><span>tools</span></div>
+            <div class="plate" data-l="2"><span>frameworks</span></div>
+            <div class="plate" data-l="1"><span>languages</span></div>
             <p class="stack-cap" id="stackCap">Scroll to build</p>
           </div>
         </div>
         <div class="stack-steps">
           <div class="step" data-l="1">
             <span class="kicker">layer 01</span>
-            <h3>Systems &amp; hardware.</h3>
-            <p>Where the signal starts.</p>
-            <ul class="tags"><li>c</li><li>c++</li><li>vhdl</li><li>linux</li><li>docker</li><li>kubernetes</li><li>git</li><li>fpga</li></ul>
-            <span class="used">used in <b>the Space Concordia satellite payload and the basketball pipeline</b></span>
+            <h3>Languages.</h3>
+            <p>What I write the logic in.</p>
+            <ul class="tags"><li>python</li><li>typescript</li><li>javascript</li><li>java</li><li>ruby</li><li>swift</li><li>html/css</li></ul>
+            <span class="used">used in <b>Lockheed Martin tooling, StoreCraft, PaintWise</b></span>
           </div>
           <div class="step" data-l="2">
             <span class="kicker">layer 02</span>
-            <h3>Backend &amp; data.</h3>
-            <p>What moves the data and keeps it.</p>
-            <ul class="tags"><li>python</li><li>java</li><li>ruby</li><li>node.js</li><li>express.js</li><li>fastapi</li><li>rest apis</li><li>mongodb</li><li>firebase</li><li>pandas</li><li>openpyxl</li></ul>
-            <span class="used">used in <b>Lockheed Martin tooling, PaintWise, StoreCraft</b></span>
+            <h3>Frameworks &amp; libraries.</h3>
+            <p>What turns code into products and models.</p>
+            <ul class="tags"><li>react.js</li><li>next.js</li><li>react native</li><li>node.js</li><li>express.js</li><li>fastapi</li><li>pytorch</li><li>pandas</li><li>openpyxl</li></ul>
+            <span class="used">used in <b>StoreCraft, PaintWise, the basketball pipeline, the Student Association apps</b></span>
           </div>
           <div class="step" data-l="3">
             <span class="kicker">layer 03</span>
-            <h3>AI &amp; computer vision.</h3>
-            <p>What makes sense of it.</p>
-            <ul class="tags"><li>pytorch</li><li>segformer</li><li>yolov8</li><li>opencv</li><li>bytetrack</li><li>clip</li><li>vercel ai sdk</li></ul>
-            <span class="used">used in <b>PaintWise, the basketball pipeline, StoreCraft's assistant</b></span>
+            <h3>Developer tools.</h3>
+            <p>What ships it and keeps it running.</p>
+            <ul class="tags"><li>git</li><li>docker</li><li>kubernetes</li><li>mongodb</li><li>firebase</li><li>stripe</li><li>rest apis</li></ul>
+            <span class="used">used in <b>every project, from Docker on the vision pipeline to Stripe in StoreCraft</b></span>
           </div>
           <div class="step" data-l="4">
             <span class="kicker">layer 04</span>
-            <h3>Interface.</h3>
-            <p>What people actually touch.</p>
-            <ul class="tags"><li>typescript</li><li>javascript</li><li>swift</li><li>react.js</li><li>react native</li><li>next.js</li><li>stripe</li><li>html/css</li></ul>
-            <span class="used">used in <b>StoreCraft, PaintWise, the Student Association apps</b></span>
+            <h3>Hardware &amp; embedded.</h3>
+            <p>Where the signal starts: boards, sensors and logic.</p>
+            <ul class="tags"><li>fpga</li><li>vhdl</li><li>c</li><li>c++</li><li>arduino</li><li>esp32</li><li>raspberry pi</li><li>linux</li></ul>
+            <span class="used">used in <b>the Space Concordia satellite payload</b></span>
           </div>
           <div class="step" data-l="5">
             <span class="kicker">assembled</span>
             <h3>One engineer, every layer.</h3>
-            <p>From an FPGA on a satellite to the button you click. In three languages: Français, English and <span lang="ar">العربية</span>.</p>
+            <p>From an FPGA on a satellite to the button you click.</p>
           </div>
         </div>
       </div>
@@ -710,42 +756,41 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
 
   <section class="block" id="beyond" aria-labelledby="by-h">
     <div class="wrap">
-      <div class="head rv">
-        <span class="kicker">// off the clock</span>
+      <div class="beyond-one rv">
         <h2 id="by-h">Beyond the code.</h2>
-      </div>
-      <div class="beyond">
-        <div class="by iron rv">
-          <span class="k">endurance</span>
-          <h3>Ironman</h3>
-          <p>Swim, bike, run. It's where my discipline comes from: train every day, track the numbers, adjust.</p>
-        </div>
-        <div class="by rv">
-          <span class="k">taste</span>
-          <h3>Sports, fashion &amp; art</h3>
-          <p>I care how things look as much as how they work. It's why this site isn't a template.</p>
-        </div>
-        <div class="by rv">
-          <span class="k">languages</span>
-          <h3>Trilingual</h3>
-          <p class="em">Français · English · <span lang="ar">العربية</span></p>
+        <div class="by-line">
+          <p class="by-main">I'm into endurance sports.</p>
+          <p class="by-sub">Ironman finisher, Mont-Tremblant</p>
+          <p class="by-note">The same habit runs through my engineering: show up every day, measure, adjust.</p>
         </div>
       </div>
     </div>
   </section>
 
   <section class="block contact" id="contact" aria-labelledby="contact-h">
-    <div class="wrap">
-      <p class="kicker rv" style="margin-bottom:16px">// contact</p>
-      <h2 class="big rv" id="contact-h">Let's build<br>something<span>.</span></h2>
-      <div class="mail rv">
-        <span class="addr" id="addr">lahanas07@gmail.com</span>
-        <button class="btn primary" id="copy" type="button">Copy email</button>
+    <div class="wrap contact-grid">
+      <div class="c-left">
+        <h2 class="big rv" id="contact-h">Let's build<br>something.</h2>
+        <p class="c-sub rv">Commerce apps, AI and the hardware underneath. I like shipping things people actually use.</p>
+        <span class="status rv"><i aria-hidden="true"></i>Open to 2027 internship opportunities</span>
+        <a class="c-mail rv" href="mailto:lahanas07@gmail.com"><span id="addr">lahanas07@gmail.com</span><span class="arr" aria-hidden="true">→</span></a>
+        <div class="c-links rv">
+          <a class="ic" href="https://www.linkedin.com/in/anaslahna" target="_blank" rel="noopener" aria-label="LinkedIn"><b>in</b></a>
+          <a class="ic" href="https://github.com/Lahanas" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg></a>
+          <a class="ic" href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+          <button class="ic" id="copy" type="button">Copy email</button>
+        </div>
       </div>
-      <div class="out-links rv">
-        <a href="https://www.linkedin.com/in/anaslahna" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a href="https://github.com/Lahanas" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="Resume_AnasLahna.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+      <div class="c-right rv">
+        <dl>
+          <div><dt>Studying</dt><dd>B.Eng. Computer Engineering Co-op, Concordia University</dd></div>
+          <div><dt>Interned at</dt><dd>Lockheed Martin, in systems and security engineering</dd></div>
+          <div><dt>Building</dt><dd>FPGA work on a wildfire-detection satellite, Space Concordia</dd></div>
+          <div><dt>Based in</dt><dd>Montréal, QC</dd></div>
+        </dl>
+        <nav class="c-nav" aria-label="Back to a section">
+          <a href="#home">Intro</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#beyond">Beyond</a>
+        </nav>
       </div>
     </div>
   </section>
@@ -763,19 +808,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
   const $ = id => document.getElementById(id);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const EMAIL = 'lahanas07@gmail.com';
+  let introDone = false; const introWaiters = [];
+  const whenIntroDone = f => introDone ? f() : introWaiters.push(f);
+  const markIntroDone = () => { if (introDone) return; introDone = true; introWaiters.splice(0).forEach(f => f()); };
 
   /* ---------- Intro: the ring assembles, layer by layer ---------- */
   (() => {
-    const el = $('intro'); if (!el) return;
+    const el = $('intro'); if (!el) { markIntroDone(); return; }
     const root = document.documentElement;
     let seen = false; try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
     const finish = () => {
       if (el.classList.contains('done')) return;
-      el.classList.add('done'); root.style.overflow = '';
+      el.classList.add('done'); root.style.overflow = ''; markIntroDone();
       try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
       setTimeout(() => el.remove(), 700);
     };
-    if (reduce || seen) { el.remove(); return; }
+    if (reduce || seen) { el.remove(); markIntroDone(); return; }
     root.style.overflow = 'hidden';
     const NS = 'http://www.w3.org/2000/svg', svg = $('introSvg');
     const L = [['CHASSIS', 'Machining the chassis…'], ['POWER', 'Wiring the power board…'], ['FPGA', 'Flashing the FPGA…'], ['CAMERA', 'Mounting the camera…'], ['LENS', 'Focusing the lens…']];
@@ -891,21 +939,57 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     }, { passive: true });
   }
   const lines = [
-    "Hey, I'm Anas.",
-    'Scroll to Skills. The stack builds itself.',
-    'I build security tools, computer vision and AI apps.',
-    'I work on FPGAs for a wildfire-detection satellite.',
-    'My basketball tracker runs at 14 FPS.',
-    'PaintWise quotes a room in under 10 seconds.',
-    'Okay, you can stop poking me now.',
-    'Fine. One more. I speak French, English and Arabic.'
+    "Hi, I'm Anas.",
+    'Computer Engineering at Concordia.',
+    'Engineering intern at Lockheed Martin.',
+    'Also writing FPGA logic for a satellite.',
+    'I like building things end to end.',
+    "Scroll down, I'll show you."
   ];
-  let li = 0;
+  let li = 0, auto = 0;
+  const say = k => {
+    li = k; bubble.textContent = lines[li];
+    if (!reduce) { bubble.classList.remove('pop'); av.classList.remove('poke'); void bubble.offsetWidth; bubble.classList.add('pop'); }
+  };
   av.addEventListener('click', () => {
-    li = (li + 1) % lines.length;
-    bubble.textContent = lines[li];
-    if (!reduce) { bubble.classList.remove('pop'); av.classList.remove('poke'); void bubble.offsetWidth; bubble.classList.add('pop'); av.classList.add('poke'); }
+    clearInterval(auto);
+    say((li + 1) % lines.length);
+    if (!reduce) av.classList.add('poke');
   });
+  if (!reduce) whenIntroDone(() => setTimeout(() => {
+    auto = setInterval(() => { if (li >= lines.length - 1) { clearInterval(auto); return; } say(li + 1); }, 2600);
+  }, 900));
+
+  /* ---------- Right-now board: split-flap letters ---------- */
+  const board = $('board');
+  if (board) {
+    const CH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    board.querySelectorAll('.flap').forEach(r => {
+      const text = r.textContent.trim();
+      r.textContent = '';
+      const sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = text; r.append(sr);
+      text.split(' ').forEach(wd => {
+        const wrap = document.createElement('span'); wrap.className = 'word'; wrap.setAttribute('aria-hidden', 'true');
+        [...wd].forEach(c => { const cell = document.createElement('span'); cell.className = 'cell'; cell.textContent = c; cell.dataset.c = c; wrap.append(cell); });
+        r.append(wrap);
+      });
+    });
+    const flip = () => {
+      board.querySelectorAll('.cell').forEach((cell, i) => {
+        const fin = cell.dataset.c; if (fin === '·' || fin === '?') return;
+        let n = 6 + Math.floor(Math.random() * 9);
+        const tick = () => { if (n-- <= 0) { cell.textContent = fin; return; } cell.textContent = CH[Math.random() * CH.length | 0]; setTimeout(tick, 50); };
+        setTimeout(tick, (i % 34) * 22);
+      });
+    };
+    if (!reduce && 'IntersectionObserver' in window) {
+      const bo = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { bo.disconnect(); whenIntroDone(flip); } }, { threshold: .3 });
+      bo.observe(board);
+    }
+    const clock = $('clock'), fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
+    const tick = () => { clock.textContent = 'Montréal ' + fmt.format(new Date()); };
+    tick(); setInterval(tick, 20000);
+  }
 
   /* ---------- StoreCraft assistant demo ---------- */
   const chat = (() => {

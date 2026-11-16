@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Anas Lahna, Computer Engineering Co-op student at Concordia University and engineering intern at Lockheed Martin. Projects in AI, computer vision and full-stack development.">
+<meta name="description" content="Anas Lahna, Computer Engineering Co-op student at Concordia University, engineering intern at Lockheed Martin and FPGA developer at Space Concordia.">
 <meta property="og:title" content="Anas Lahna — Computer Engineer">
-<meta property="og:description" content="Systems and security engineering at Lockheed Martin, an ML painting quote tool, real-time computer vision and an AI e-commerce platform.">
+<meta property="og:description" content="Systems and security engineering at Lockheed Martin, FPGA work on a wildfire-detection satellite, an ML painting quote tool and real-time computer vision.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lahanas.github.io/portfolio-website/">
 <meta property="og:image" content="https://lahanas.github.io/portfolio-website/anas-avatar.webp">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: sparse dark page over a living field of signal lines; the ring assembles on load, skills build as a stack, projects filter by area, experience is a road map. */
+/* Layout: sparse dark page over a living field of signal lines; a satellite payload assembles on load, skills build as a stack, projects filter by area, experience is a road map. */
 :root{
   --bg:#08080A;
   --panel:#0F0F12;
@@ -111,7 +111,7 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .head h2{font-size:clamp(34px,4.6vw,54px);letter-spacing:-.035em;line-height:1.05}
 .head p{color:var(--muted);max-width:56ch}
 
-/* Intro: the ring assembles */
+/* Intro: the satellite payload assembles */
 .intro{position:fixed;inset:0;z-index:60;background:var(--bg);display:grid;place-items:center;transition:opacity .6s ease,visibility .6s;animation:introOut .6s ease 4.5s forwards}
 .intro.done{opacity:0;visibility:hidden}
 @keyframes introOut{to{opacity:0;visibility:hidden}}
@@ -186,18 +186,21 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .tags li{font-family:var(--mono);font-size:12.5px;line-height:1;padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--bg);transition:color .2s,border-color .2s}
 .tags li:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
 
-/* OpenRing hardware view */
-.ring-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 44px;align-items:center}
-.ring-stage{position:relative;width:100%;max-width:420px;aspect-ratio:1;justify-self:center;border-radius:20px;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 9%,transparent),transparent 75%)}
-#ringcv{position:relative;z-index:1;width:100%;height:100%;display:block;touch-action:none;cursor:grab;animation:bob 5s ease-in-out infinite}
-.ring-shadow{position:absolute;left:24%;right:24%;bottom:7%;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);animation:shadow 5s ease-in-out infinite}
-@keyframes shadow{50%{transform:scaleX(.8);opacity:.55}}
-.ring-hint{position:absolute;left:0;right:0;bottom:-4px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
-.hw{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
-.hw li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:2px 14px;align-items:baseline}
-.hw i{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);transform:translateY(1px)}
-.hw b{font-weight:500;font-size:16.5px}
-.hw span{grid-column:2;color:var(--muted);font-size:14.5px;line-height:1.5}
+/* Satellite illustration */
+.sat svg{display:block;width:100%;height:auto}
+.sat .earth{fill:#0D1310;stroke:#2B3A30;stroke-width:1.2}
+.sat .orbit{fill:none;stroke:#34343E;stroke-width:1;stroke-dasharray:3 5}
+.sat .body{fill:#1A1A20;stroke:var(--fg);stroke-width:1}
+.sat .panel{fill:#1B2333;stroke:var(--blue);stroke-width:1}
+.sat .beam{fill:url(#beamGrad)}
+.sat .fire{fill:#FF7A45}
+.sat .box{fill:none;stroke:var(--ok);stroke-width:1.4}
+.sat .tree{fill:#1F3A28}
+.sat .lbl{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.ly .chip,.ly .lens{opacity:0;transition:opacity .3s}
+.ly.on .chip,.ly.cur .chip,.ly.on .lens,.ly.cur .lens{opacity:1}
+.ly .chip{fill:#1A1A20;stroke:var(--accent);stroke-width:1}
+.ly .lens{fill:none;stroke:var(--ok);stroke-width:1.4}
 
 /* Road map */
 .road{position:relative;--p:0}
@@ -313,7 +316,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
   .hero .wrap{grid-template-columns:1fr}
   .avatar-zone{order:-1;justify-self:start;width:clamp(200px,52vw,260px);margin-left:8px}
   .bubble{right:auto;left:72%;top:4%;border-radius:14px 14px 14px 4px;transform-origin:0 100%;max-width:min(200px,40vw)}
-  .ring-wrap{grid-template-columns:1fr}
   .proj{grid-template-columns:1fr}
   .imp{grid-template-columns:repeat(2,minmax(0,1fr))}
   .imp li:nth-child(odd){border-left:0;padding-left:0}
@@ -535,28 +537,50 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
           </div></div></div>
         </div>
 
-        <div class="acc rv" data-viz="ring" data-cat="hardware">
+        <div class="acc rv" data-cat="hardware">
           <button class="acc-h" type="button" aria-expanded="false" aria-controls="p4">
-            <span class="acc-t"><b>OpenRing</b><span>In build: turns a $20 smart ring into an Oura-style system that runs on your own laptop.</span></span>
-            <span class="acc-m">side project · hardware</span>
+            <span class="acc-t"><b>Wildfire Detection Satellite</b><span>FPGA work on the camera payload of a satellite that watches Québec's forests for wildfires.</span></span>
+            <span class="acc-m">fpga · space concordia</span>
             <span class="pm" aria-hidden="true"></span>
           </button>
           <div class="acc-b" id="p4"><div class="acc-in"><div class="acc-pad">
-            <div class="ring-wrap">
-              <div class="ring-stage">
-                <span class="ring-shadow" aria-hidden="true"></span>
-                <canvas id="ringcv" role="img" aria-label="3D model of the Colmi R9 smart ring, floating and rotating, with its sensors highlighted"></canvas>
-                <span class="ring-hint">drag to rotate</span>
+            <div class="proj">
+              <div class="demo sat">
+                <div class="demo-bar"><span>orbit view</span><span>illustration</span></div>
+                <svg id="satSvg" viewBox="0 0 400 250" role="img" aria-label="Illustration of a satellite passing over forest, its camera footprint sweeping the ground and boxing wildfire hotspots">
+                  <defs><linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0B45A" stop-opacity=".45"/><stop offset="1" stop-color="#F0B45A" stop-opacity="0"/></linearGradient></defs>
+                  <path class="orbit" d="M20,129.5 A430,430 0 0 1 380,129.5"/>
+                  <circle class="earth" cx="200" cy="520" r="330"/>
+                  <g><path class="tree" d="M60,236 l5,-11 l5,11 z"/><path class="tree" d="M80,226 l5,-11 l5,11 z"/><path class="tree" d="M140,205 l5,-11 l5,11 z"/><path class="tree" d="M165,199 l5,-11 l5,11 z"/><path class="tree" d="M190,197 l5,-11 l5,11 z"/><path class="tree" d="M245,198 l5,-11 l5,11 z"/><path class="tree" d="M270,203 l5,-11 l5,11 z"/><path class="tree" d="M330,214 l5,-11 l5,11 z"/><path class="tree" d="M352,224 l5,-11 l5,11 z"/></g>
+                  <rect class="fire" x="106" y="196" width="8" height="8"><animate attributeName="opacity" values=".5;1;.5" dur="1.2s" repeatCount="indefinite"/></rect>
+                  <rect class="fire" x="216" y="184" width="8" height="8"><animate attributeName="opacity" values=".5;1;.5" dur="1.4s" repeatCount="indefinite"/></rect>
+                  <rect class="fire" x="296" y="199" width="8" height="8"><animate attributeName="opacity" values=".5;1;.5" dur="1.1s" repeatCount="indefinite"/></rect>
+                  <rect class="box" x="100" y="190" width="20" height="20" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.24;.27;.9;1" dur="8s" repeatCount="indefinite"/></rect>
+                  <rect class="box" x="210" y="178" width="20" height="20" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.53;.56;.9;1" dur="8s" repeatCount="indefinite"/></rect>
+                  <rect class="box" x="290" y="193" width="20" height="20" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.74;.77;.9;1" dur="8s" repeatCount="indefinite"/></rect>
+                  <g id="satBody">
+                    <animateMotion dur="8s" repeatCount="indefinite" rotate="auto" path="M20,129.5 A430,430 0 0 1 380,129.5"/>
+                    <polygon class="beam" points="-5,6 5,6 26,80 -26,80"/>
+                    <rect class="panel" x="-34" y="-4" width="22" height="8"/>
+                    <rect class="panel" x="12" y="-4" width="22" height="8"/>
+                    <rect class="body" x="-8" y="-7" width="16" height="13" rx="2"/>
+                  </g>
+                  <text class="lbl" x="200" y="238" text-anchor="middle">QUÉBEC · FOREST COVER</text>
+                  <text class="lbl" x="24" y="118">low earth orbit</text>
+                </svg>
+                <div class="demo-cap"><span><i style="--c:var(--accent)"></i>camera footprint</span><span><i style="--c:#FF7A45"></i>hotspot</span><span><i style="--c:var(--ok)"></i>detected</span></div>
               </div>
-              <ul class="hw">
-                <li><i style="--c:var(--ok)"></i><b>Optical heart-rate + SpO2 sensor</b><span>Green LEDs on the inside of the band, for live heart rate and sleep.</span></li>
-                <li><i style="--c:var(--accent)"></i><b>3-axis accelerometer</b><span>Sensortek STK8321. Steps, sleep and gestures: double-tap plays music, a flick changes slides.</span></li>
-                <li><i style="--c:var(--blue)"></i><b>Temperature sensor</b><span>Feeds the Readiness score.</span></li>
-                <li><i style="--c:var(--fg)"></i><b>Bluetooth LE</b><span>Reverse-engineered 16-byte packet protocol. About 3 days of logs on the ring, synced to SQLite.</span></li>
-              </ul>
+              <div class="proj-txt">
+                <p>I joined Space Concordia's <b>hardware team</b> in October 2026 as an <b>FPGA developer</b>. We're building the <b>camera system for a satellite</b> that detects wildfires from space, with a focus on Québec.</p>
+                <p>My work is on the <b>FPGA side of the camera payload</b>, done in collaboration with an industry partner. The payload is targeted for <b>summer 2027</b>.</p>
+              </div>
             </div>
-            <p>One Python process owns the Bluetooth link. It syncs the ring every 15 minutes, computes <b>Sleep, Activity and Readiness scores</b>, streams <b>live heart rate</b> to a local dashboard, and turns ring gestures into media keys. No cloud, no subscription, nothing leaves the laptop.</p>
-            <ul class="tags"><li>python</li><li>bluetooth le</li><li>fastapi</li><li>sqlite</li><li>pywebview</li><li>colmi r9</li></ul>
+            <div class="nums">
+              <div><strong>FPGA</strong><span>camera payload hardware</span></div>
+              <div><strong>Québec</strong><span>wildfire detection focus</span></div>
+              <div><strong>2027</strong><span>payload target: summer</span></div>
+            </div>
+            <ul class="tags"><li>fpga</li><li>satellite</li><li>camera payload</li><li>space concordia</li></ul>
           </div></div></div>
         </div>
 
@@ -614,6 +638,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               </ul>
             </div>
           </li>
+          <li class="stop">
+            <span class="node" aria-hidden="true"></span>
+            <div class="stop-card rv">
+              <span class="stop-when">Oct 2026 – present</span>
+              <h3>FPGA Developer, Hardware Team</h3>
+              <span class="stop-org">Space Concordia · Montréal</span>
+              <span class="stop-hl">satellite camera payload · summer 2027</span>
+              <ul class="bul">
+                <li>Develop <b>FPGA</b> work for the <b>camera payload</b> of a satellite built for <b>space-based wildfire detection</b>, focused on Québec.</li>
+                <li>Collaborate with Space Concordia's hardware team and an <b>industry partner</b> on the payload, targeted for <b>summer 2027</b>.</li>
+              </ul>
+            </div>
+          </li>
           <li class="stop next">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
@@ -650,8 +687,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
             <span class="kicker">layer 01</span>
             <h3>Systems &amp; hardware.</h3>
             <p>Where the signal starts.</p>
-            <ul class="tags"><li>c</li><li>c++</li><li>vhdl</li><li>linux</li><li>docker</li><li>kubernetes</li><li>git</li><li>bluetooth le</li></ul>
-            <span class="used">used in <b>OpenRing and the basketball pipeline</b></span>
+            <ul class="tags"><li>c</li><li>c++</li><li>vhdl</li><li>linux</li><li>docker</li><li>kubernetes</li><li>git</li><li>fpga</li></ul>
+            <span class="used">used in <b>the Space Concordia satellite payload and the basketball pipeline</b></span>
           </div>
           <div class="step" data-l="2">
             <span class="kicker">layer 02</span>
@@ -677,7 +714,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
           <div class="step" data-l="5">
             <span class="kicker">assembled</span>
             <h3>One engineer, every layer.</h3>
-            <p>From a Bluetooth packet to the button you click. In three languages: Français, English and <span lang="ar">العربية</span>.</p>
+            <p>From an FPGA on a satellite to the button you click. In three languages: Français, English and <span lang="ar">العربية</span>.</p>
           </div>
         </div>
       </div>
@@ -754,16 +791,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     if (reduce || seen) { el.remove(); return; }
     root.style.overflow = 'hidden';
     const NS = 'http://www.w3.org/2000/svg', svg = $('introSvg');
-    const L = [['SHELL', 'Machining the shell…'], ['BATTERY', 'Fitting the battery…'], ['BOARD', 'Mounting the board…'], ['ANTENNA', 'Tuning the Bluetooth antenna…'], ['SENSORS', 'Calibrating the sensors…']];
+    const L = [['CHASSIS', 'Machining the chassis…'], ['POWER', 'Wiring the power board…'], ['FPGA', 'Flashing the FPGA…'], ['CAMERA', 'Mounting the camera…'], ['LENS', 'Focusing the lens…']];
     const mk = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent.append(n); return n; };
-    const donut = (rx, ry, ix, iy) => `M${-rx},0 a${rx},${ry} 0 1,0 ${2 * rx},0 a${rx},${ry} 0 1,0 ${-2 * rx},0 Z M${-ix},0 a${ix},${iy} 0 1,0 ${2 * ix},0 a${ix},${iy} 0 1,0 ${-2 * ix},0 Z`;
     const CX = 120, FIN = i => 158 - i * 10, LBL = i => 176 - i * 32;
     const parts = L.map(([name], i) => {
       const line = mk('line', { class: 'lead', x1: CX + 86, y1: FIN(i), x2: 238, y2: LBL(i) }, svg);
       const g = mk('g', { class: 'ly' }, svg);
-      mk('path', { d: donut(84, 25, 60, 16), class: 'side', 'fill-rule': 'evenodd', transform: 'translate(0,6)' }, g);
-      mk('path', { d: donut(84, 25, 60, 16), class: 'top', 'fill-rule': 'evenodd' }, g);
-      if (name === 'SENSORS') [-16, 0, 16].forEach(dx => mk('circle', { cx: dx, cy: 15.5, r: 2.4, class: 'led' }, g));
+      const plate = 'M0,-30 L84,0 L0,30 L-84,0 Z';
+      mk('path', { d: plate, class: 'side', transform: 'translate(0,7)' }, g);
+      mk('path', { d: plate, class: 'top' }, g);
+      if (name === 'FPGA') mk('path', { d: 'M0,-10 L26,0 L0,10 L-26,0 Z', class: 'chip' }, g);
+      if (name === 'CAMERA') mk('ellipse', { cx: 0, cy: 0, rx: 16, ry: 7, class: 'chip' }, g);
+      if (name === 'LENS') { mk('ellipse', { cx: 0, cy: 0, rx: 22, ry: 9, class: 'lens' }, g); mk('circle', { cx: 0, cy: 0, r: 2.6, class: 'led' }, g); }
       const txt = mk('text', { class: 'lb', x: 244, y: LBL(i) + 3.5 }, svg);
       txt.textContent = name;
       return { g, line, txt };
@@ -868,7 +907,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     "Hey, I'm Anas.",
     'Scroll to Skills. The stack builds itself.',
     'I build security tools, computer vision and AI apps.',
-    'Open OpenRing in Projects. The ring floats.',
+    'I work on FPGAs for a wildfire-detection satellite.',
     'My basketball tracker runs at 14 FPS.',
     'PaintWise quotes a room in under 10 seconds.',
     'Okay, you can stop poking me now.',
@@ -880,74 +919,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     bubble.textContent = lines[li];
     if (!reduce) { bubble.classList.remove('pop'); av.classList.remove('poke'); void bubble.offsetWidth; bubble.classList.add('pop'); av.classList.add('poke'); }
   });
-
-  /* ---------- 3D ring (OpenRing) ---------- */
-  const rc = $('ringcv'), rctx = rc.getContext('2d');
-  const ring = (() => {
-    let w = 0, h = 0, ry = 0.5, rx = 1.08, drag = null, on = false, raf = 0;
-    const R = 1, TH = 0.085, BW = 0.27;
-    const pt3 = (u, v) => [(R + TH * Math.cos(v)) * Math.cos(u), BW * Math.sin(v), (R + TH * Math.cos(v)) * Math.sin(u)];
-    const proj = ([x, y, z]) => {
-      const cy = Math.cos(ry), sy = Math.sin(ry), cxr = Math.cos(rx), sxr = Math.sin(rx);
-      const x1 = x * cy - z * sy, z1 = x * sy + z * cy;
-      const y2 = y * cxr - z1 * sxr, z2 = y * sxr + z1 * cxr;
-      const s = Math.min(w, h) * 0.34, k = 3.2 / (3.2 + z2);
-      return [w / 2 + x1 * s * k, h / 2 + y2 * s * k, z2, k];
-    };
-    const front = z => 1 - (z + 1.4) / 2.8;
-    const MK = [
-      { u: -Math.PI / 2 - 0.09, v: Math.PI, c: '#7DD893', r: 3, pulse: 1 },
-      { u: -Math.PI / 2, v: Math.PI, c: '#7DD893', r: 3.6, pulse: 1 },
-      { u: -Math.PI / 2 + 0.09, v: Math.PI, c: '#7DD893', r: 3, pulse: 1 },
-      { u: -Math.PI / 2 + 0.55, v: Math.PI, c: '#86B4FF', r: 3.6 },
-      { u: Math.PI / 2, v: Math.PI, c: '#F0B45A', r: 4.4 },
-      { u: Math.PI / 2 + 0.6, v: Math.PI, c: '#ECECE8', r: 3.4 }
-    ];
-    const size = () => {
-      const b = rc.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
-      w = b.width; h = b.height; rc.width = Math.max(1, w * d); rc.height = Math.max(1, h * d);
-      rctx.setTransform(d, 0, 0, d, 0, 0);
-    };
-    const seg = (a, b, rgb, base) => {
-      const al = base * (0.18 + 0.82 * front((a[2] + b[2]) / 2));
-      rctx.strokeStyle = `rgba(${rgb},${al.toFixed(3)})`;
-      rctx.beginPath(); rctx.moveTo(a[0], a[1]); rctx.lineTo(b[0], b[1]); rctx.stroke();
-    };
-    const draw = t => {
-      rctx.clearRect(0, 0, w, h);
-      const NU = 96, NV = 14, pts = [];
-      for (let i = 0; i <= NU; i++) { const u = i / NU * Math.PI * 2, rowp = []; for (let j = 0; j <= NV; j++) rowp.push(proj(pt3(u, j / NV * Math.PI * 2))); pts.push(rowp); }
-      rctx.lineWidth = 1;
-      for (let j = 0; j < NV; j++) for (let i = 0; i < NU; i++) seg(pts[i][j], pts[i + 1][j], '236,236,232', 0.5);
-      for (let i = 0; i < NU; i += 3) for (let j = 0; j < NV; j++) seg(pts[i][j], pts[i][j + 1], '236,236,232', 0.28);
-      rctx.lineWidth = 1.6;
-      for (let i = 0; i < NU; i++) seg(pts[i][0], pts[i + 1][0], '240,180,90', 0.9);
-      MK.forEach(m => {
-        const [x, y, z, k] = proj(pt3(m.u, m.v));
-        let a = 0.3 + 0.7 * front(z);
-        if (m.pulse) a *= 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 0.007));
-        rctx.globalAlpha = a; rctx.fillStyle = m.c; rctx.shadowColor = m.c; rctx.shadowBlur = 16;
-        rctx.beginPath(); rctx.arc(x, y, m.r * k * 1.25, 0, Math.PI * 2); rctx.fill();
-        rctx.shadowBlur = 0; rctx.globalAlpha = 1;
-      });
-    };
-    const loop = t => { if (!drag) ry += 0.006; draw(t); raf = on ? requestAnimationFrame(loop) : 0; };
-    rc.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; rc.setPointerCapture(e.pointerId); rc.style.cursor = 'grabbing'; });
-    rc.addEventListener('pointermove', e => {
-      if (!drag) return;
-      ry += (e.clientX - drag.x) * 0.01;
-      rx = Math.max(0.15, Math.min(1.55, rx + (e.clientY - drag.y) * 0.01));
-      drag = { x: e.clientX, y: e.clientY };
-      if (reduce || !on) draw(0);
-    });
-    const end = () => { drag = null; rc.style.cursor = ''; };
-    rc.addEventListener('pointerup', end); rc.addEventListener('pointercancel', end);
-    addEventListener('resize', () => { if (w) { size(); draw(0); } });
-    return {
-      start() { size(); draw(0); if (reduce || on) return; on = true; raf = requestAnimationFrame(loop); },
-      stop() { on = false; cancelAnimationFrame(raf); }
-    };
-  })();
 
   /* ---------- StoreCraft assistant demo ---------- */
   const chat = (() => {
@@ -1034,8 +1005,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     };
   })();
 
-  if (reduce) document.querySelectorAll('#paintSvg animate').forEach(a => a.remove());
-  const VIZ = { ring, chat, court };
+  if (reduce) document.querySelectorAll('#paintSvg animate, #satSvg animate, #satSvg animateMotion').forEach(a => a.remove());
+  if (reduce && $('satBody')) $('satBody').setAttribute('transform', 'translate(200,90)');
+  const VIZ = { chat, court };
   document.querySelectorAll('.acc.open[data-viz]').forEach(it => { const v = VIZ[it.dataset.viz]; if (v) v.start(); });
 
   /* ---------- Expandable projects ---------- */

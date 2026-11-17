@@ -25,13 +25,13 @@
   --line:#22222A;
   --fg:#ECECE8;
   --muted:#8F8F98;
-  --accent:#6EA8FE;
+  --accent:#4ADE9B;
   --ok:#7DD893;
   --blue:#86B4FF;
   --coral:#FF7A59;
   --pink:#FF6FA8;
   --violet:#B69CFF;
-  --grad:linear-gradient(90deg,#A9CBFF,#5B8CFF);
+  --grad:linear-gradient(90deg,#A7F3CF,#2FCB85);
   --sans:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   color-scheme:dark;
@@ -472,7 +472,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
           <button class="avatar" id="avatar" type="button" aria-label="Anas's avatar. Click for a message.">
             <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
               <defs><path id="circ" d="M100,100 m-91,0 a91,91 0 1,1 182,0 a91,91 0 1,1 -182,0"/></defs>
-              <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A9CBFF"/><stop offset="1" stop-color="#5B8CFF"/></linearGradient></defs>
+              <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A7F3CF"/><stop offset="1" stop-color="#2FCB85"/></linearGradient></defs>
               <text><textPath href="#circ" textLength="566" lengthAdjust="spacing">CLICK ME · CLICK ME · CLICK ME · CLICK ME · CLICK ME · CLICK ME ·</textPath></text>
             </svg>
             <span class="face"><img src="anas-avatar.webp" alt="" width="640" height="640"><span class="glare"></span></span>
@@ -621,7 +621,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               <div class="demo sat">
                 <div class="demo-bar"><span>orbit view</span><span>illustration</span></div>
                 <svg id="satSvg" viewBox="0 0 400 250" role="img" aria-label="Illustration of a satellite passing over forest, its camera footprint sweeping the ground and boxing wildfire hotspots">
-                  <defs><linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EA8FE" stop-opacity=".45"/><stop offset="1" stop-color="#6EA8FE" stop-opacity="0"/></linearGradient></defs>
+                  <defs><linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE9B" stop-opacity=".45"/><stop offset="1" stop-color="#4ADE9B" stop-opacity="0"/></linearGradient></defs>
                   <path class="orbit" d="M20,129.5 A430,430 0 0 1 380,129.5"/>
                   <circle class="earth" cx="200" cy="520" r="330"/>
                   <g><path class="tree" d="M60,236 l5,-11 l5,11 z"/><path class="tree" d="M80,226 l5,-11 l5,11 z"/><path class="tree" d="M140,205 l5,-11 l5,11 z"/><path class="tree" d="M165,199 l5,-11 l5,11 z"/><path class="tree" d="M190,197 l5,-11 l5,11 z"/><path class="tree" d="M245,198 l5,-11 l5,11 z"/><path class="tree" d="M270,203 l5,-11 l5,11 z"/><path class="tree" d="M330,214 l5,-11 l5,11 z"/><path class="tree" d="M352,224 l5,-11 l5,11 z"/></g>
@@ -680,10 +680,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
                 <span class="logo" style="--lc:#912338"><b>CSA</b><img src="logos/concordia-student-association.png" alt="" loading="lazy"></span>
                 <div class="stop-id"><h3>Software Engineering Intern</h3><span class="stop-org">Concordia Student Association · Montréal</span></div>
               </div>
-              <span class="stop-hl">150+ students</span>
+              <span class="stop-hl">600+ live players</span>
               <ul class="bul">
-                <li>Developed cross-platform apps with <b>React Native</b>, <b>React.js</b>, <b>Node.js</b> and <b>Firebase</b>, supporting <b>150+ students</b>.</li>
-                <li>Implemented <b>OpenID Connect</b> authentication and optimized multilingual workflows, cutting processing time by <b>50%</b>.</li>
+                <li>Led development of an open-source <b>1 vs 100 multiplayer game show</b> for a hackathon, supporting <b>600+ simultaneous players</b> in real time with <b>Django</b>, <b>WebSockets</b> and <b>React.js</b>.</li>
+                <li>Cut processing time by <b>50%</b> by streamlining multilingual workflows and adding secure single sign-on (<b>OpenID Connect</b>).</li>
               </ul>
             </div>
           </li>
@@ -762,7 +762,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
             <span class="kicker">layer 02</span>
             <h3>Frameworks &amp; libraries.</h3>
             <p>What turns code into products and models.</p>
-            <ul class="tags"><li>react.js</li><li>next.js</li><li>react native</li><li>node.js</li><li>express.js</li><li>fastapi</li><li>pytorch</li><li>pandas</li><li>openpyxl</li></ul>
+            <ul class="tags"><li>react.js</li><li>next.js</li><li>react native</li><li>node.js</li><li>django</li><li>fastapi</li><li>pytorch</li><li>pandas</li><li>openpyxl</li></ul>
             <span class="used">used in <b>StoreCraft, PaintWise, the basketball pipeline, the Student Association apps</b></span>
           </div>
           <div class="step" data-l="3">
@@ -932,7 +932,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     for (let i = -1; i < rows; i++) {
       const y0 = i * gap, dy = y0 - mouse.y;
       const near = Math.exp(-(dy * dy) / (2 * 140 * 140));
-      const r = Math.round(236 - 126 * near), g = Math.round(236 - 68 * near), b = Math.round(232 + 22 * near);
+      const r = Math.round(236 - 162 * near), g = Math.round(236 - 14 * near), b = Math.round(232 - 77 * near);
       cx.strokeStyle = `rgba(${r},${g},${b},${0.06 + 0.42 * near})`;
       cx.beginPath();
       for (let x = -step; x <= W + step; x += step) {
@@ -1092,7 +1092,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       pl.forEach((p, i) => {
         const [px, py] = ps[i];
         p.trail.push([px, py]); if (p.trail.length > 26) p.trail.shift();
-        const col = p.team ? '200,200,206' : '110,168,254';
+        const col = p.team ? '200,200,206' : '74,222,155';
         g.strokeStyle = `rgba(${col},.22)`; g.beginPath();
         p.trail.forEach(([tx, ty], j) => j ? g.lineTo(X(tx), Y(ty)) : g.moveTo(X(tx), Y(ty))); g.stroke();
         g.strokeStyle = `rgba(${col},.7)`; g.strokeRect(X(px) - 9, Y(py) - 9, 18, 18);

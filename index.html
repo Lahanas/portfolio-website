@@ -285,6 +285,26 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .stack.assembled .led{background:var(--accent);box-shadow:0 0 12px var(--accent),0 0 3px var(--accent)}
 .stack.assembled .plate[data-l="1"]{--y:-6px}.stack.assembled .plate[data-l="2"]{--y:-2px}.stack.assembled .plate[data-l="3"]{--y:2px}.stack.assembled .plate[data-l="4"]{--y:6px}
 .stack.assembled .plate span{opacity:0}
+.traces{position:absolute;left:50%;top:46%;width:600px;height:420px;margin:-210px 0 0 -300px;overflow:visible;pointer-events:none}
+.traces .tr{fill:none;stroke:color-mix(in srgb,var(--accent) 50%,transparent);stroke-width:1.3;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .3s}
+.traces .pad{fill:#0A0A0C;stroke:var(--accent);stroke-width:1.3;opacity:0;transition:opacity .3s}
+.traces .pu{fill:none;stroke:#C9FFE6;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:6 100;opacity:0;filter:drop-shadow(0 0 4px var(--accent)) drop-shadow(0 0 8px var(--accent))}
+.stack.live .traces .tr{stroke-dashoffset:0;transition:stroke-dashoffset 1.1s cubic-bezier(.3,.7,.3,1) calc(.7s + var(--d0))}
+.stack.live .traces .pad{opacity:1;transition:opacity .4s calc(1.6s + var(--d0))}
+.stack.live .traces .pu{opacity:1;animation:zap var(--t) linear calc(1.8s + var(--d)) infinite}
+@keyframes zap{from{stroke-dashoffset:106}to{stroke-dashoffset:0}}
+.stack.live .plate{--y:60px!important;opacity:0}
+.stack.live .chip{transform:translateY(-4px) rotateX(0deg) rotateZ(0deg) scale(1.05);transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.chip-body::after{content:"";position:absolute;inset:-4px;border:1px solid var(--accent);border-radius:12px;opacity:0;pointer-events:none}
+.stack.live .chip-body{animation:breathe 2.4s ease-in-out 1.1s infinite}
+.stack.live .chip-body::after{animation:ripple 2.4s ease-out 1.1s infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 30px color-mix(in srgb,var(--accent) 18%,transparent)}50%{box-shadow:0 0 80px color-mix(in srgb,var(--accent) 45%,transparent),inset 0 0 18px color-mix(in srgb,var(--accent) 12%,transparent)}}
+@keyframes ripple{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.45);opacity:0}}
+.pins i{transition:background .4s,box-shadow .4s}
+.stack.live .pins i{background:#CFEFE0;box-shadow:0 0 5px color-mix(in srgb,var(--accent) 70%,transparent);transition-delay:1s}
+.stack.live .led{animation:blink 1.1s steps(2,jump-none) 1.2s infinite}
+@keyframes blink{50%{background:#1E3A2E;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){.stack.live .traces .pu,.stack.live .chip-body,.stack.live .chip-body::after,.stack.live .led{animation:none}}
 .stack-steps{display:flex;flex-direction:column;min-width:0}
 .step{min-height:62vh;display:flex;flex-direction:column;justify-content:center;gap:14px}
 .step:last-child{min-height:44vh}
@@ -764,6 +784,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
             <div class="plate" data-l="3"><span>tools</span></div>
             <div class="plate" data-l="2"><span>frameworks</span></div>
             <div class="plate" data-l="1"><span>languages</span></div>
+            <svg class="traces" id="traces" viewBox="0 0 600 420" width="600" height="420" aria-hidden="true"></svg>
             <div class="chip">
               <div class="pins t"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pins b"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pins l"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pins r"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
               <div class="chip-body"><span class="pin1"></span><div class="die"><span class="led"></span><b>ANAS</b><small>AL-2028 · MTL</small></div></div>
@@ -804,6 +825,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
             <span class="kicker">assembled</span>
             <h3>One engineer, every layer.</h3>
             <p>From an FPGA on a satellite to the button you click.</p>
+          </div>
+          <div class="step" data-l="6">
+            <span class="kicker">powered on</span>
+            <h3>Built to run.</h3>
+            <p>Code that drives the hardware, hardware that runs the code.</p>
           </div>
         </div>
       </div>
@@ -1175,8 +1201,32 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     const setLayer = l => {
       plates.forEach(pl => { const n = +pl.dataset.l; pl.classList.toggle('on', n <= l); pl.classList.toggle('cur', n === l); });
       stack.classList.toggle('assembled', l >= 5);
-      cap.textContent = l >= 5 ? 'Assembled. Powered on.' : `Layer ${l} of 4`;
+      stack.classList.toggle('live', l >= 6);
+      cap.textContent = l >= 6 ? 'Powered on.' : l >= 5 ? 'Assembled.' : `Layer ${l} of 4`;
     };
+    const tsvg = $('traces');
+    if (tsvg) {
+      const NS = 'http://www.w3.org/2000/svg', C = [300, 210], R = 106, off = [-60.4, -20.1, 20.1, 60.4];
+      const sides = [
+        { d: [1, 0], p: [0, 1], len: [122, 140, 104, 132], o: off },
+        { d: [-1, 0], p: [0, 1], len: [165, 125, 180, 140], o: off },
+        { d: [0, -1], p: [1, 0], len: [40, 62, 48], o: [-40.25, 0, 40.25] },
+        { d: [0, 1], p: [1, 0], len: [70, 52, 78], o: [-40.25, 0, 40.25] }
+      ];
+      let k = 0, html = '';
+      sides.forEach(s => s.o.forEach((o, i) => {
+        const sx = C[0] + s.d[0] * R + s.p[0] * o, sy = C[1] + s.d[1] * R + s.p[1] * o;
+        const a = 12 + (i % 2) * 10, sg = Math.sign(o), b = sg ? (Math.abs(o) > 40 ? 22 : 10) : 0;
+        const x1 = sx + s.d[0] * a, y1 = sy + s.d[1] * a;
+        const x2 = x1 + s.d[0] * b + s.p[0] * sg * b, y2 = y1 + s.d[1] * b + s.p[1] * sg * b;
+        const c = Math.max(10, s.len[i] - a - b), x3 = x2 + s.d[0] * c, y3 = y2 + s.d[1] * c;
+        const dpath = `M${sx.toFixed(1)} ${sy.toFixed(1)}L${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}L${x3.toFixed(1)} ${y3.toFixed(1)}`;
+        const st = `--d0:${(k * .05).toFixed(2)}s;--d:${(-(k * .37) % 1.9).toFixed(2)}s;--t:${(1.4 + (k % 4) * .25).toFixed(2)}s`;
+        html += `<path class="tr" pathLength="100" d="${dpath}" style="${st}"/><path class="pu" pathLength="100" d="${dpath}" style="${st}"/><circle class="pad" cx="${x3.toFixed(1)}" cy="${y3.toFixed(1)}" r="3.4" style="${st}"/>`;
+        k++;
+      }));
+      tsvg.innerHTML = html;
+    }
     const so = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) setLayer(+en.target.dataset.l); }), { rootMargin: '-45% 0px -45% 0px' });
     stack.querySelectorAll('.step').forEach(st => so.observe(st));
   }

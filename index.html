@@ -593,7 +593,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               <div class="demo">
                 <div class="demo-bar"><span>tracking view</span><span>illustration</span></div>
                 <div class="court-box"><canvas id="courtcv" role="img" aria-label="Illustration of a court seen from above, with tracked players, the ball and a possession marker"></canvas></div>
-                <div class="demo-cap"><span><i style="--c:var(--accent)"></i>team A</span><span><i style="--c:#C8C8CE"></i>team B</span><span><i style="--c:var(--ok)"></i>possession</span></div>
+                <div class="demo-cap"><span><i style="--c:#FF6B7A"></i>team A</span><span><i style="--c:#6EA8FE"></i>team B</span><span><i style="--c:#FFB547"></i>ball · possession</span></div>
               </div>
               <div class="proj-txt">
                 <p>A real-time computer vision pipeline: <b>YOLO</b> detects players and the ball, <b>ByteTrack</b> follows them, <b>CLIP</b> sorts players into teams, and <b>OpenCV</b> maps everyone onto the court.</p>
@@ -1092,14 +1092,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       pl.forEach((p, i) => {
         const [px, py] = ps[i];
         p.trail.push([px, py]); if (p.trail.length > 26) p.trail.shift();
-        const col = p.team ? '200,200,206' : '74,222,155';
+        const col = p.team ? '110,168,254' : '255,107,122';
         g.strokeStyle = `rgba(${col},.22)`; g.beginPath();
         p.trail.forEach(([tx, ty], j) => j ? g.lineTo(X(tx), Y(ty)) : g.moveTo(X(tx), Y(ty))); g.stroke();
         g.strokeStyle = `rgba(${col},.7)`; g.strokeRect(X(px) - 9, Y(py) - 9, 18, 18);
         g.fillStyle = `rgb(${col})`; g.beginPath(); g.arc(X(px), Y(py), 4.5, 0, Math.PI * 2); g.fill();
-        if (i === holder) { g.strokeStyle = '#7DD893'; g.lineWidth = 1.5; g.beginPath(); g.arc(X(px), Y(py), 14, 0, Math.PI * 2); g.stroke(); g.lineWidth = 1; }
+        if (i === holder) { g.strokeStyle = '#FFB547'; g.lineWidth = 1.5; g.beginPath(); g.arc(X(px), Y(py), 14, 0, Math.PI * 2); g.stroke(); g.lineWidth = 1; }
       });
-      g.fillStyle = '#ECECE8'; g.beginPath(); g.arc(X(bx) + 5, Y(by) - 5, 3, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#FFB547'; g.beginPath(); g.arc(X(bx) + 5, Y(by) - 5, 3.5, 0, Math.PI * 2); g.fill();
       g.font = '11px "Geist Mono", ui-monospace, monospace'; g.fillStyle = 'rgba(236,236,232,.55)';
       g.fillText('players 10 · ball 1 · possession: team A', 20, 28);
     };

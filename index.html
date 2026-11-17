@@ -25,9 +25,13 @@
   --line:#22222A;
   --fg:#ECECE8;
   --muted:#8F8F98;
-  --accent:#F0B45A;
+  --accent:#6EA8FE;
   --ok:#7DD893;
   --blue:#86B4FF;
+  --coral:#FF7A59;
+  --pink:#FF6FA8;
+  --violet:#B69CFF;
+  --grad:linear-gradient(90deg,#A9CBFF,#5B8CFF);
   --sans:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   color-scheme:dark;
@@ -72,6 +76,7 @@ section[id]{scroll-margin-top:72px}
 .hero h1 .w{display:inline-block;animation:drop .9s cubic-bezier(.2,.8,.2,1) both}
 .hero h1 .w+.w{animation-delay:.12s}
 .hero p{font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--muted);max-width:38ch;animation:up .9s ease .35s both}
+.hero p b.c1,.hero p b.c2,.hero p b.c3{color:var(--accent)}
 .hero p b{color:var(--fg);font-weight:500}
 .btns{display:flex;flex-wrap:wrap;gap:10px;animation:up .9s ease .5s both}
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding-inline:20px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);font-family:var(--mono);font-size:14px;text-decoration:none;cursor:pointer;transition:border-color .2s,background .2s,transform .2s,color .2s}
@@ -93,8 +98,8 @@ section[id]{scroll-margin-top:72px}
 .avatar{all:unset;box-sizing:border-box;position:relative;display:block;width:100%;aspect-ratio:1;max-width:100%;cursor:pointer;border-radius:50%;-webkit-tap-highlight-color:transparent}
 .avatar:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
 .ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 26s linear infinite;overflow:visible}
-.ring text{font-family:var(--mono);font-size:11px;letter-spacing:.14em;fill:var(--muted);transition:fill .3s}
-.avatar:hover .ring text{fill:var(--accent)}
+.ring text{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;fill:url(#ringGrad);transition:opacity .3s;opacity:.9}
+.avatar:hover .ring text{opacity:1}
 @keyframes spin{to{transform:rotate(360deg)}}
 .face{position:absolute;inset:13%;border-radius:50%;overflow:hidden;background:#0B0B10;box-shadow:0 0 0 1px var(--line),0 30px 70px -20px #000;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,box-shadow .35s}
 .avatar:hover .face{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 70%,transparent),0 0 0 8px color-mix(in srgb,var(--accent) 12%,transparent),0 30px 70px -20px #000}
@@ -188,6 +193,8 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .tags li{font-family:var(--mono);font-size:12.5px;line-height:1;padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--bg);transition:color .2s,border-color .2s}
 .tags li:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
 
+.org-chip{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.org-chip img{width:48px;height:48px;border-radius:50%;flex:none}
 /* Satellite illustration */
 .sat svg{display:block;width:100%;height:auto}
 .sat .earth{fill:#0D1310;stroke:#2B3A30;stroke-width:1.2}
@@ -225,6 +232,18 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .bul li{position:relative;padding-left:22px;color:var(--muted);font-size:15.5px;line-height:1.55}
 .bul li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono);font-size:13.5px;top:1px}
 .bul b{color:var(--fg);font-weight:500}
+.stop-top{display:flex;align-items:center;gap:14px}
+.logo{position:relative;flex:none;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;overflow:hidden;background:var(--lc);color:#fff;font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:-.02em;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 24px -12px var(--lc)}
+.logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.logo.wide{width:auto;height:56px;aspect-ratio:417/128;border-radius:10px}
+.stop-top.col{flex-direction:column;align-items:flex-start;gap:12px}
+.stop-id{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stop{--sc:var(--accent)}
+.stop .stop-when{color:var(--sc)}
+.stop .stop-hl{color:var(--sc);border-color:color-mix(in srgb,var(--sc) 45%,transparent)}
+.stop .bul li::before{color:var(--sc)}
+.stop.reached .node{border-color:var(--sc);background:var(--sc);box-shadow:0 0 0 6px color-mix(in srgb,var(--sc) 18%,transparent),0 0 24px color-mix(in srgb,var(--sc) 50%,transparent)}
+.stop.reached .stop-card{border-color:color-mix(in srgb,var(--sc) 30%,#2A2A32)}
 .stop.next .stop-card{border-style:dashed;background:transparent}
 .stop.next .node{border-style:dashed}
 .stop.next .btn{align-self:flex-start;margin-top:6px}
@@ -242,7 +261,9 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .plate[data-l="4"]{--y:96px;--ya:27px}
 .plate.on{opacity:1;border-color:#8F8F98}
 .plate.on span{color:var(--fg)}
-.plate.cur{--lift:-16px;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--panel));box-shadow:0 0 50px color-mix(in srgb,var(--accent) 22%,transparent)}
+.plate{--pc:var(--accent)}
+.plate.cur{--lift:-16px;border-color:var(--pc);background:color-mix(in srgb,var(--pc) 16%,var(--panel));box-shadow:0 0 50px color-mix(in srgb,var(--pc) 24%,transparent)}
+.plate.cur span{color:var(--pc)!important}
 .plate.cur span{color:var(--accent)}
 .stack.assembled .plate{--y:var(--ya);opacity:1;border-color:color-mix(in srgb,var(--accent) 60%,transparent)}
 .stack-cap{position:absolute;left:0;right:0;bottom:0;text-align:center;font-family:var(--mono);font-size:13px;color:var(--muted)}
@@ -259,20 +280,23 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .step .tags li::before,.step .tags li::after{content:"";position:absolute;left:7px;right:7px;height:3px;background:repeating-linear-gradient(90deg,#55555E 0 2px,transparent 2px 6px);transition:background .2s}
 .step .tags li::before{top:-4px}
 .step .tags li::after{bottom:-4px}
-.step .tags li:hover{border-color:var(--accent);color:var(--accent)}
-.step .tags li:hover::before,.step .tags li:hover::after{background:repeating-linear-gradient(90deg,var(--accent) 0 2px,transparent 2px 6px)}
+.step{--pc:var(--accent)}
+.step .kicker{color:var(--pc)}
+.step .tags li:hover{border-color:var(--pc);color:var(--pc)}
+.step .tags li:hover::before,.step .tags li:hover::after{background:repeating-linear-gradient(90deg,var(--pc) 0 2px,transparent 2px 6px)}
 
 /* Right-now board (split-flap) */
+.now .wrap{max-width:1200px}
 .now{border-block:1px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent)}
 .board{display:flex;flex-direction:column;padding-block:26px}
 .board-top{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted);padding-bottom:14px}
-.board-row{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:8px 18px;align-items:center;padding-block:11px;border-top:1px solid var(--line)}
+.board-row{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:10px 22px;align-items:center;padding-block:16px;border-top:1px solid var(--line)}
 .board-k{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.flap{display:flex;flex-wrap:wrap;row-gap:6px;min-width:0}
-.word{display:inline-flex;gap:2px;margin-right:.55em;white-space:nowrap}
-.cell{display:inline-block;min-width:.74em;padding:.2em .08em;text-align:center;font-family:var(--mono);font-size:clamp(14px,1.55vw,18px);line-height:1.15;color:var(--fg);background:#1C1C22;border:1px solid #2A2A32;border-radius:3px;position:relative}
+.flap{display:flex;flex-wrap:wrap;row-gap:8px;min-width:0}
+.word{display:inline-flex;gap:2px;margin-right:.65em;white-space:nowrap}
+.cell{display:inline-block;min-width:.9em;padding:.32em .12em;text-align:center;font-family:var(--mono);font-size:clamp(14px,1.3vw,16px);line-height:1.15;color:var(--fg);background:#1C1C22;border:1px solid #2A2A32;border-radius:3px;position:relative}
 .cell::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.65)}
-.board-row.hot .cell{color:var(--accent)}
+.board-row.r1 .cell{color:var(--accent)}
 .board-st{font-family:var(--mono);font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .board-st i{width:7px;height:7px;border-radius:50%;background:#3A3A44}
 .board-st.live{color:var(--ok)}
@@ -346,6 +370,7 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .c-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
 .c-nav a:hover{color:var(--accent)}
 .contact .big span{color:var(--accent)}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent!important}
 .mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:28px}
 .addr{font-family:var(--mono);font-size:clamp(17px,2.2vw,21px);padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 85%,transparent);user-select:all;overflow-wrap:anywhere}
 .out-links{display:flex;gap:24px;flex-wrap:wrap;font-family:var(--mono);font-size:14.5px}
@@ -415,7 +440,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top">anas lahna</a>
+    <a class="brand" href="#top">Anas Lahna</a>
     <nav aria-label="Sections">
       <a href="#projects">projects</a>
       <a href="#experience">experience</a>
@@ -432,7 +457,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       <div class="hero-text">
         <span class="status"><i aria-hidden="true"></i>Open to 2027 internships · Montréal</span>
         <h1 id="name"><span class="w">Anas</span> <span class="w">Lahna</span></h1>
-        <p>Computer Engineering student at Concordia. I build across the whole stack: <b>products</b>, <b>AI</b> and the <b>hardware</b> underneath.</p>
+        <p>Computer Engineering student at Concordia. I build across the whole stack: <b class="c1">products</b>, <b class="c2">AI</b> and the <b class="c3">hardware</b> underneath.</p>
         <div class="btns">
           <a class="btn primary" href="#projects">Projects</a>
           <a class="btn" href="#experience">Experience</a>
@@ -447,6 +472,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
           <button class="avatar" id="avatar" type="button" aria-label="Anas's avatar. Click for a message.">
             <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
               <defs><path id="circ" d="M100,100 m-91,0 a91,91 0 1,1 182,0 a91,91 0 1,1 -182,0"/></defs>
+              <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A9CBFF"/><stop offset="1" stop-color="#5B8CFF"/></linearGradient></defs>
               <text><textPath href="#circ" textLength="566" lengthAdjust="spacing">CLICK ME · CLICK ME · CLICK ME · CLICK ME · CLICK ME · CLICK ME ·</textPath></text>
             </svg>
             <span class="face"><img src="anas-avatar.webp" alt="" width="640" height="640"><span class="glare"></span></span>
@@ -461,10 +487,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     <div class="wrap">
       <div class="board" id="board">
         <div class="board-top"><span>right now</span><span id="clock">Montréal</span></div>
-        <div class="board-row hot"><span class="board-k">interning</span><span class="flap">Systems Engineer Intern · Lockheed Martin</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
-        <div class="board-row"><span class="board-k">building</span><span class="flap">FPGA camera payload · Space Concordia</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
-        <div class="board-row"><span class="board-k">studying</span><span class="flap">Computer Engineering · Concordia University</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
-        <div class="board-row"><span class="board-k">next</span><span class="flap">2027 internship · your team?</span><span class="board-st"><i aria-hidden="true"></i>boarding</span></div>
+        <div class="board-row r1"><span class="board-k">interning</span><span class="flap">Systems Engineer Intern · Lockheed Martin</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row r2"><span class="board-k">building</span><span class="flap">FPGA camera payload · Space Concordia</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row r3"><span class="board-k">studying</span><span class="flap">Computer Engineering · Concordia University</span><span class="board-st live"><i aria-hidden="true"></i>now</span></div>
+        <div class="board-row r4"><span class="board-k">next</span><span class="flap">2027 internship · your team?</span><span class="board-st"><i aria-hidden="true"></i>boarding</span></div>
       </div>
     </div>
   </section>
@@ -566,7 +592,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               <div class="demo">
                 <div class="demo-bar"><span>tracking view</span><span>illustration</span></div>
                 <div class="court-box"><canvas id="courtcv" role="img" aria-label="Illustration of a court seen from above, with tracked players, the ball and a possession marker"></canvas></div>
-                <div class="demo-cap"><span><i style="--c:var(--accent)"></i>team A</span><span><i style="--c:var(--blue)"></i>team B</span><span><i style="--c:var(--ok)"></i>possession</span></div>
+                <div class="demo-cap"><span><i style="--c:var(--accent)"></i>team A</span><span><i style="--c:#C8C8CE"></i>team B</span><span><i style="--c:var(--ok)"></i>possession</span></div>
               </div>
               <div class="proj-txt">
                 <p>A real-time computer vision pipeline: <b>YOLO</b> detects players and the ball, <b>ByteTrack</b> follows them, <b>CLIP</b> sorts players into teams, and <b>OpenCV</b> maps everyone onto the court.</p>
@@ -594,7 +620,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               <div class="demo sat">
                 <div class="demo-bar"><span>orbit view</span><span>illustration</span></div>
                 <svg id="satSvg" viewBox="0 0 400 250" role="img" aria-label="Illustration of a satellite passing over forest, its camera footprint sweeping the ground and boxing wildfire hotspots">
-                  <defs><linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0B45A" stop-opacity=".45"/><stop offset="1" stop-color="#F0B45A" stop-opacity="0"/></linearGradient></defs>
+                  <defs><linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EA8FE" stop-opacity=".45"/><stop offset="1" stop-color="#6EA8FE" stop-opacity="0"/></linearGradient></defs>
                   <path class="orbit" d="M20,129.5 A430,430 0 0 1 380,129.5"/>
                   <circle class="earth" cx="200" cy="520" r="330"/>
                   <g><path class="tree" d="M60,236 l5,-11 l5,11 z"/><path class="tree" d="M80,226 l5,-11 l5,11 z"/><path class="tree" d="M140,205 l5,-11 l5,11 z"/><path class="tree" d="M165,199 l5,-11 l5,11 z"/><path class="tree" d="M190,197 l5,-11 l5,11 z"/><path class="tree" d="M245,198 l5,-11 l5,11 z"/><path class="tree" d="M270,203 l5,-11 l5,11 z"/><path class="tree" d="M330,214 l5,-11 l5,11 z"/><path class="tree" d="M352,224 l5,-11 l5,11 z"/></g>
@@ -617,6 +643,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
                 <div class="demo-cap"><span><i style="--c:var(--accent)"></i>camera footprint</span><span><i style="--c:#FF7A45"></i>hotspot</span><span><i style="--c:var(--ok)"></i>detected</span></div>
               </div>
               <div class="proj-txt">
+                <div class="org-chip"><img src="logos/space-concordia.png" alt="Space Concordia logo" width="48" height="48"><span>Space Concordia · Hardware team</span></div>
                 <p>I joined Space Concordia's <b>hardware team</b> in November 2026 as an <b>FPGA developer</b>. We're building the <b>camera system for a satellite</b> that detects wildfires from space, with a focus on Québec.</p>
                 <p>My work is on the <b>FPGA side of the camera payload</b>, done in collaboration with <b>Zetane Systems</b>. The payload is targeted for <b>summer 2027</b>.</p>
               </div>
@@ -644,12 +671,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       <div class="road" id="road">
         <div class="road-line" aria-hidden="true"><span class="road-fill"></span></div>
         <ol class="stops">
-          <li class="stop">
+          <li class="stop s1">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
               <span class="stop-when">Sep – Dec 2024</span>
-              <h3>Full-Stack Developer</h3>
-              <span class="stop-org">Concordia Student Association · Montréal</span>
+              <div class="stop-top">
+                <span class="logo" style="--lc:#912338"><b>CSA</b><img src="logos/concordia-student-association.png" alt="" loading="lazy"></span>
+                <div class="stop-id"><h3>Full-Stack Developer</h3><span class="stop-org">Concordia Student Association · Montréal</span></div>
+              </div>
               <span class="stop-hl">150+ students</span>
               <ul class="bul">
                 <li>Developed cross-platform apps with <b>React Native</b>, <b>React.js</b>, <b>Node.js</b> and <b>Firebase</b>, supporting <b>150+ students</b>.</li>
@@ -657,12 +686,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               </ul>
             </div>
           </li>
-          <li class="stop">
+          <li class="stop s2">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
               <span class="stop-when">Jan – Aug 2026</span>
-              <h3>Security Engineer Intern</h3>
-              <span class="stop-org">Lockheed Martin · Montréal</span>
+              <div class="stop-top col">
+                <span class="logo wide" style="--lc:#0D2445"><b>LM</b><img src="logos/lockheed-martin.png" alt="" loading="lazy"></span>
+                <div class="stop-id"><h3>Security Engineer Intern</h3><span class="stop-org">Lockheed Martin · Montréal</span></div>
+              </div>
               <span class="stop-hl">triage 30 min → under 2 min</span>
               <ul class="bul">
                 <li>Developed a <b>Ruby CLI</b> mapping security requirements across <b>200+ components</b>, cutting triage from <b>30 minutes to under 2</b>.</li>
@@ -671,12 +702,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               </ul>
             </div>
           </li>
-          <li class="stop">
+          <li class="stop s3">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
               <span class="stop-when">Sep – Dec 2026</span>
-              <h3>Systems Engineer Intern</h3>
-              <span class="stop-org">Lockheed Martin · Montréal</span>
+              <div class="stop-top col">
+                <span class="logo wide" style="--lc:#0D2445"><b>LM</b><img src="logos/lockheed-martin.png" alt="" loading="lazy"></span>
+                <div class="stop-id"><h3>Systems Engineer Intern</h3><span class="stop-org">Lockheed Martin · Montréal</span></div>
+              </div>
               <span class="stop-hl">version checks 3 h → under 5 min</span>
               <ul class="bul">
                 <li>Developed a <b>Python</b> tool integrating <b>Windchill OData REST APIs</b> with <b>Cameo MBSE</b>, reconciling <b>500+ document references</b> and cutting version checks from <b>3 hours to under 5 minutes</b>.</li>
@@ -685,7 +718,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
               </ul>
             </div>
           </li>
-          <li class="stop next">
+          <li class="stop next s4">
             <span class="node" aria-hidden="true"></span>
             <div class="stop-card rv">
               <span class="stop-when">Next stop · 2027</span>
@@ -771,7 +804,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
   <section class="block contact" id="contact" aria-labelledby="contact-h">
     <div class="wrap contact-grid">
       <div class="c-left">
-        <h2 class="big rv" id="contact-h">Let's build<br>something.</h2>
+        <h2 class="big rv" id="contact-h">Let's build<br><span class="grad">something.</span></h2>
         <p class="c-sub rv">Commerce apps, AI and the hardware underneath. I like shipping things people actually use.</p>
         <span class="status rv"><i aria-hidden="true"></i>Open to 2027 internship opportunities</span>
         <a class="c-mail rv" href="mailto:lahanas07@gmail.com"><span id="addr">lahanas07@gmail.com</span><span class="arr" aria-hidden="true">→</span></a>
@@ -898,7 +931,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     for (let i = -1; i < rows; i++) {
       const y0 = i * gap, dy = y0 - mouse.y;
       const near = Math.exp(-(dy * dy) / (2 * 140 * 140));
-      const r = Math.round(236 + 4 * near), g = Math.round(236 - 56 * near), b = Math.round(232 - 142 * near);
+      const r = Math.round(236 - 126 * near), g = Math.round(236 - 68 * near), b = Math.round(232 + 22 * near);
       cx.strokeStyle = `rgba(${r},${g},${b},${0.06 + 0.42 * near})`;
       cx.beginPath();
       for (let x = -step; x <= W + step; x += step) {
@@ -1058,7 +1091,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
       pl.forEach((p, i) => {
         const [px, py] = ps[i];
         p.trail.push([px, py]); if (p.trail.length > 26) p.trail.shift();
-        const col = p.team ? '134,180,255' : '240,180,90';
+        const col = p.team ? '200,200,206' : '110,168,254';
         g.strokeStyle = `rgba(${col},.22)`; g.beginPath();
         p.trail.forEach(([tx, ty], j) => j ? g.lineTo(X(tx), Y(ty)) : g.moveTo(X(tx), Y(ty))); g.stroke();
         g.strokeStyle = `rgba(${col},.7)`; g.strokeRect(X(px) - 9, Y(py) - 9, 18, 18);
@@ -1134,6 +1167,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     }), { rootMargin: '-50% 0px -50% 0px' });
     dots.forEach(a => { const sec = document.querySelector(a.getAttribute('href')); if (sec) dio.observe(sec); });
   }
+
+  /* ---------- Logo images fall back to monograms ---------- */
+  document.querySelectorAll('.logo img').forEach(img => {
+    const drop = () => img.remove();
+    img.addEventListener('error', drop);
+    if (img.complete && !img.naturalWidth) drop();
+  });
 
   /* ---------- Copy email ---------- */
   const btn = $('copy');

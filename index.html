@@ -353,8 +353,10 @@ section.block{padding-block:clamp(80px,11vw,140px)}
 .msg.u{align-self:flex-end;background:var(--fg);color:var(--bg);border-bottom-right-radius:4px}
 .msg.b{align-self:flex-start;background:#16161B;border:1px solid var(--line);border-bottom-left-radius:4px}
 .msg.t{align-self:flex-start;display:flex;flex-direction:column;gap:3px;padding:8px 11px;border:1px dashed #34343E;border-radius:8px;font-family:var(--mono);font-size:12.5px}
-.msg.t code{color:var(--accent);white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit}
-.msg.t .res{color:var(--ok)}
+.msg.t{border-color:#3B3550;background:#121018}
+.msg.t code{color:#8A8A96;white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit}
+.msg.t .fn{color:#C4B5FD}.msg.t .ky{color:#8CC8FF}.msg.t .st{color:#FFC86B}.msg.t .nu{color:#FF8FA3}
+.msg.t .res{color:#B4B4BE}.msg.t .res i{font-style:normal;color:#C4B5FD;margin-right:6px}
 .msg.in{animation:msgIn .35s ease both}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .court-box{position:relative;width:100%;max-width:100%;aspect-ratio:94/52}
@@ -1086,7 +1088,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 2
     ];
     const node = m => {
       const d = document.createElement('div'); d.className = 'msg ' + m[0];
-      if (m[0] === 't') { const c = document.createElement('code'); c.textContent = m[1]; const r = document.createElement('span'); r.className = 'res'; r.textContent = '✓ ' + m[2]; d.append(c, r); }
+      if (m[0] === 't') {
+        const c = document.createElement('code'), re = /([A-Za-z_]\w*)(?=\()|"[^"]*"|\b\d+\b|[A-Za-z_]\w*(?=:)/g;
+        let last = 0, mt;
+        while ((mt = re.exec(m[1]))) {
+          if (mt.index > last) c.append(m[1].slice(last, mt.index));
+          const sp = document.createElement('span'), tk = mt[0];
+          sp.className = mt[1] ? 'fn' : tk[0] === '"' ? 'st' : /^\d/.test(tk) ? 'nu' : 'ky';
+          sp.textContent = tk; c.append(sp); last = re.lastIndex;
+        }
+        c.append(m[1].slice(last));
+        const r = document.createElement('span'), ck = document.createElement('i'); r.className = 'res'; ck.textContent = '✓'; r.append(ck, m[2]); d.append(c, r);
+      }
       else d.textContent = m[1];
       return d;
     };
